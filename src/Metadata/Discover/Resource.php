@@ -8,11 +8,8 @@ use Composer\Autoload\ClassLoader;
 final class Resource extends Discover implements DiscoverInterface
 {
    
-    public function collections() {
-        $bundle_paths = $this->config->get('bundle_resources_path', []);
-        $app_paths = $this->config->get('flow_resource_paths', []);
-        $paths = array_merge($bundle_paths, $app_paths);
-        $discovers = $this->scanDir($paths);
+   public function collections() {
+        $discovers = $this->scanDir($this->paths, ['php']);
         $classMap = [];
         $resources = [];
         foreach ($discovers as $className => $classFile) {

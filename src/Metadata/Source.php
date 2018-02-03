@@ -12,11 +12,11 @@ final class Source
     private $resourceDiscover;
     private $propertyDiscover;
 
-    public function __construct(Config $config,
+    public function __construct(
         DiscoverInterface $resourceDiscover,
         DiscoverInterface $propertyDiscover
     ) {
-        $this->config = $config;
+       
         $this->resourceDiscover = $resourceDiscover;
         $this->propertyDiscover = $propertyDiscover;
     }
@@ -39,7 +39,7 @@ final class Source
             $operation = [];
             $id = sprintf($baseId, $action);
             $operation['id'] = $id;
-            $operation['class'] = $this->config->get(sprintf('class_%s_operation', $action));
+            $operation['class'] = '';
             $operation['alias'] = $this->buildAlias($action, $resource['alias']);
             $operation['action'] = $action;
             $operation['type'] = $this->buildType($action);
@@ -68,7 +68,7 @@ final class Source
             $operation = [];
             $id = sprintf($baseId, $action);
             $operation['id'] = $id;
-            $operation['class'] = $this->config->get(sprintf('class_%s_admin', $action));
+            $operation['class'] = '';
             $operation['alias'] = $this->buildAlias($action, $resource['alias']);
             $operation['action'] = $action;
             $operation['type'] = $this->buildType($action);

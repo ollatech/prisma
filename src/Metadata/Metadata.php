@@ -36,17 +36,17 @@ final class Metadata implements MetadataInterface
         $this->propertyDiscover = $propertyDiscover;
     }
 
-   
     public function resources() {
-       $resources =  $this->resourceDiscover->collections();
-       $metadatas = [];
-       foreach ($resources as $key => $className) {
+        $resources =  $this->resourceDiscover->collections();
+        $metadatas = [];
+        foreach ($resources as $key => $className) {
             $resource = $this->builder->create($className);
             $metadatas[$className] = $resource;
-       }
-       return $metadatas;
+        }
+        return $metadatas;
     }
+
     public function resource(string $resourceClass) {
        return $this->builder->create($resourceClass);
-    }
+   }
 }

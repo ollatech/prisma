@@ -7,7 +7,7 @@
       <argument type="service" id="Olla\Prisma\Metadata\Builder" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Admin" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Frontend" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\GraphqlType" />
+      <argument type="service" id="Olla\Prisma\Metadata\Discover\Type" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Operation" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Resource" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Subscription" />
@@ -17,7 +17,7 @@
       <argument type="service" id="Olla\Prisma\Metadata\Source" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Admin" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Frontend" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\GraphqlType" />
+      <argument type="service" id="Olla\Prisma\Metadata\Discover\Type" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Operation" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Resource" />
       <argument type="service" id="Olla\Prisma\Metadata\Discover\Subscription" />
@@ -52,8 +52,7 @@
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
-   <service id="Olla\Prisma\Metadata\Discover\GraphqlType" class="Olla\Prisma\Metadata\Discover\GraphqlType" >
-    
+   <service id="Olla\Prisma\Metadata\Discover\Type" class="Olla\Prisma\Metadata\Discover\Type" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />

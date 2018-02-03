@@ -37,11 +37,16 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
     {
         $this->reconfig($configs, $container);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        //$loader->load('framework.xml');
+        $loader->load('metadata.xml');
     }
     private function reconfig(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('app_resources_dirs', $config['mapping']['entity_paths']);
+        $container->setParameter('prisma_resource_paths', $config['mapping']['resource_paths']);
+        $container->setParameter('prisma_operation_paths', $config['mapping']['operation_paths']);
+        $container->setParameter('prisma_admin_paths', $config['mapping']['admin_paths']);
+        $container->setParameter('prisma_frontend_paths', $config['mapping']['frontend_paths']);
+        $container->setParameter('prisma_type_paths', $config['mapping']['type_paths']);
+        $container->setParameter('prisma_subscription_paths', $config['mapping']['subscription_paths']);
     }
 }

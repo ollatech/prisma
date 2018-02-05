@@ -7,47 +7,38 @@ namespace Olla\Prisma\Annotation;
  * @Target({"CLASS"})
  */
 final class Operation {
-	
     /**
      * @var string
      */
-    public $resource_class;
+	public $id;
 
     /**
      * @var string
      */
-    public $resource_alias;
-
-    /**
-     * @var string
-     */
-    public $operation_class;
-
-    /**
-     * @var string
-     */
-    public $operation_method;
-
-
-    /**
-     * @var string
-     */
-    public $name;
+    public $alias;
 
     /**
      * @var string
      */
     public $description;
-
+    
     /**
-     * @var string
+     * @var array
      */
-    public $group;
-
+    public $arguments = [];
     /**
-     * @var string
+     * @var array
      */
-    public $type;
+    public $permissions = [];
+    /**
+     * @var array
+     */
+    public $route = [];
+
+     /**
+     * @var array
+     */
+    public $tags;
 
     /**
      * @var string
@@ -55,47 +46,7 @@ final class Operation {
     public $action;
 
     /**
-     * @var array
-     */
-    public $attributes = [];
-
-    /**
      * @var string
      */
-    public $method;
-
-    /**
-     * @var string
-     */
-    public $path;
-
-    /**
-     * @var bool
-     */
-    public $enabled;
-
-    /**
-     * @var array
-     */
-    public $access = [];
-
-    /**
-     * @var array
-     */
-    public $queries = [];
-
-    /**
-     * @var array
-     */
-    public $filters = [];
-
-    /**
-     * @var array
-     */
-    public $inputs = [];
-
-    /**
-     * @var array
-     */
-    public $context = [];
+    public $controller;
 }

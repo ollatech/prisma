@@ -1,6 +1,6 @@
 <?php
 
-namespace Olla\Prisma\Metadata\Discover;
+namespace Olla\Prisma\Discover;
 
 use Composer\Autoload\ClassLoader;
 use Doctrine\Common\Annotations\Reader;
@@ -16,12 +16,12 @@ abstract class Discover
     protected $paths;
 
     public function __construct(Reader $reader, SerializerInterface $serializer,  PropertyInfoExtractorInterface $propertyInfo) {
-    
         $this->reader =  $reader;
         $this->serializer = $serializer;
         $this->propertyInfo = $propertyInfo;
     }
-   public function addPath($paths) {
+    
+    public function addPath($paths) {
         $this->paths = $paths;
     }
     
@@ -67,7 +67,7 @@ abstract class Discover
             $sourceFile = $reflectionClass->getFileName();
             if (isset($includedFiles[$sourceFile])) {
                 $classes[$className] = $sourceFile;
-            }
+            } 
         }
         return $classes;
     }

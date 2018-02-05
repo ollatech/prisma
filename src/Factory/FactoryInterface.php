@@ -1,6 +1,6 @@
 <?php
 
-namespace Olla\Prisma\Metadata\Factory;
+namespace Olla\Prisma\Factory;
 
 interface FactoryInterface {
 	

@@ -38,6 +38,8 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $this->reconfig($configs, $container);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('metadata.xml');
+        $loader->load('builder.xml');
+        $loader->load('route.xml');
     }
     private function reconfig(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
@@ -46,7 +48,23 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $container->setParameter('prisma_operation_paths', $config['mapping']['operation_paths']);
         $container->setParameter('prisma_admin_paths', $config['mapping']['admin_paths']);
         $container->setParameter('prisma_frontend_paths', $config['mapping']['frontend_paths']);
-        $container->setParameter('prisma_type_paths', $config['mapping']['type_paths']);
-        $container->setParameter('prisma_subscription_paths', $config['mapping']['subscription_paths']);
+
+        $container->setParameter('prisma_collection_operation', $config['operation']['collection']);
+        $container->setParameter('prisma_item_operation', $config['operation']['item']);
+        $container->setParameter('prisma_create_operation', $config['operation']['create']);
+        $container->setParameter('prisma_update_operation', $config['operation']['update']);
+        $container->setParameter('prisma_delete_operation', $config['operation']['delete']);
+
+        $container->setParameter('prisma_collection_admin', $config['admin']['collection']);
+        $container->setParameter('prisma_item_admin', $config['admin']['item']);
+        $container->setParameter('prisma_item_form_admin', $config['admin']['item_form']);
+        $container->setParameter('prisma_create_admin', $config['admin']['create']);
+        $container->setParameter('prisma_update_admin', $config['admin']['update']);
+        $container->setParameter('prisma_delete_admin', $config['admin']['delete']);
+
+        $container->setParameter('prisma_api_entrypoint', $config['entrypoint']['api']);
+        $container->setParameter('prisma_admin_entrypoint', $config['entrypoint']['admin']);
+        $container->setParameter('prisma_frontend_entrypoint', $config['entrypoint']['frontend']);
+        $container->setParameter('prisma_graphql_entrypoint', $config['entrypoint']['graphql']);
     }
 }

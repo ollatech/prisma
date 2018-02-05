@@ -3,99 +3,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 	<services>
-		<service id="Olla\Prisma\Metadata\Metadata" class="Olla\Prisma\Metadata\Metadata" >
-      <argument type="service" id="Olla\Prisma\Metadata\Builder" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Admin" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Frontend" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Type" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Operation" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Resource" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Subscription" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Property" />
-    </service>
-    <service id="Olla\Prisma\Metadata\Builder" class="Olla\Prisma\Metadata\Builder" >
-      <argument type="service" id="Olla\Prisma\Metadata\Source" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Admin" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Frontend" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Type" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Operation" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Resource" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Subscription" />
-      <argument type="service" id="Olla\Prisma\Metadata\Discover\Property" />
-      <argument type="service" id="Olla\Prisma\Metadata\Factory\Resource" />
-      <argument type="service" id="Olla\Prisma\Metadata\Factory\Operation" />
-      <argument type="service" id="Olla\Prisma\Metadata\Factory\Property" />
-      <argument type="service" id="Olla\Prisma\Metadata\Factory\Subscription" />
-      <argument type="service" id="Olla\Prisma\Metadata\Factory\Type" />
-    </service>
-    <service id="Olla\Prisma\Metadata\Source" class="Olla\Prisma\Metadata\Source" >
-     <argument type="service" id="Olla\Prisma\Metadata\Discover\Resource" />
-     <argument type="service" id="Olla\Prisma\Metadata\Discover\Property" />
-   </service>
+		
 
    <!--discover -->
-   <service id="Olla\Prisma\Metadata\Discover\Admin" class="Olla\Prisma\Metadata\Discover\Admin" >
-    
+   <service id="Olla\Prisma\Discover\Admin" class="Olla\Prisma\Discover\Admin" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
-   <service id="Olla\Prisma\Metadata\Discover\Frontend" class="Olla\Prisma\Metadata\Discover\Frontend" >
-    
+   <service id="Olla\Prisma\Discover\Frontend" class="Olla\Prisma\Discover\Frontend" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
-   <service id="Olla\Prisma\Metadata\Discover\Operation" class="Olla\Prisma\Metadata\Discover\Operation" >
-    
+   <service id="Olla\Prisma\Discover\Operation" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
-   <service id="Olla\Prisma\Metadata\Discover\Type" class="Olla\Prisma\Metadata\Discover\Type" >
+   <service id="Olla\Prisma\Discover\Resource" class="Olla\Prisma\Discover\Resource" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
-   <service id="Olla\Prisma\Metadata\Discover\Property" class="Olla\Prisma\Metadata\Discover\Property" >
-    
-     <argument type="service" id="annotation_reader" />
-     <argument type="service" id="serializer" />
-     <argument type="service" id="property_info" />
-   </service>
-   <service id="Olla\Prisma\Metadata\Discover\Resource" class="Olla\Prisma\Metadata\Discover\Resource" >
-    
-     <argument type="service" id="annotation_reader" />
-     <argument type="service" id="serializer" />
-     <argument type="service" id="property_info" />
-   </service>
-   <service id="Olla\Prisma\Metadata\Discover\Subscription" class="Olla\Prisma\Metadata\Discover\Subscription" >
-    
-     <argument type="service" id="annotation_reader" />
-     <argument type="service" id="serializer" />
-     <argument type="service" id="property_info" />
-   </service>
+ 
 
    <!--Factory-->
-   <service id="Olla\Prisma\Metadata\Factory\Operation" class="Olla\Prisma\Metadata\Factory\Operation" >
+   <service id="Olla\Prisma\Factory\Operation" class="Olla\Prisma\Factory\Operation" >
 
    </service>
-   <service id="Olla\Prisma\Metadata\Factory\Property" class="Olla\Prisma\Metadata\Factory\Property" >
+   <service id="Olla\Prisma\Factory\Resource" class="Olla\Prisma\Factory\Resource" >
 
    </service>
-   <service id="Olla\Prisma\Metadata\Factory\Resource" class="Olla\Prisma\Metadata\Factory\Resource" >
-
-   </service>
-   <service id="Olla\Prisma\Metadata\Factory\Type" class="Olla\Prisma\Metadata\Factory\Type" >
-
-   </service>
-   <service id="Olla\Prisma\Metadata\Factory\Subscription" class="Olla\Prisma\Metadata\Factory\Subscription" >
-
-   </service>
+ 
+ 
 
    <!--Command-->
    <service id="Olla\Prisma\Command\MetadataCommand" class="Olla\Prisma\Command\MetadataCommand" >
-     <argument type="service" id="Olla\Prisma\Metadata\Metadata" />
+     <argument type="service" id="Olla\Prisma\Metadata" />
      <tag name="console.command"  />
    </service>
  </services>

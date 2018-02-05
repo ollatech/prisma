@@ -7,11 +7,11 @@ namespace Olla\Prisma\Annotation;
  * @Target({"CLASS"})
  */
 final class Resource {
+
 	/**
-     * Operation Name
      * @var string
      */
-    public $type;
+    public $id;
     
     /**
      * @var string
@@ -31,17 +31,7 @@ final class Resource {
     /**
      * @var array
      */
-    public $customOperations;
-
-    /**
-     * @var array
-     */
     public $attributes = [];
-
-    /**
-     * @var array
-     */
-    public $translation = [];
 
     /**
      * @var array
@@ -52,4 +42,9 @@ final class Resource {
      * @var array
      */
     public $serializer = [];
+
+    /**
+     * @var bool
+     */
+    public $translateable;
 }

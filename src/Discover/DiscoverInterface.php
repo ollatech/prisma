@@ -1,6 +1,6 @@
 <?php
 
-namespace Olla\Prisma\Metadata\Discover;
+namespace Olla\Prisma\Discover;
 
 interface DiscoverInterface {
     

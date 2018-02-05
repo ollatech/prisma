@@ -1,8 +1,6 @@
 <?php
 
-namespace Olla\Prisma\Metadata;
-
-
+namespace Olla\Prisma;
 interface MetadataInterface
 {
    

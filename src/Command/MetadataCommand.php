@@ -2,7 +2,7 @@
 
 namespace Olla\Prisma\Command;
 
-use Olla\Prisma\Metadata\MetadataInterface;
+use Olla\Prisma\MetadataInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\Output;

@@ -14,15 +14,34 @@ abstract class Discover
     protected $serializer;
     protected $propertyInfo;
     protected $paths;
+    protected $cache_dir;
 
     public function __construct(Reader $reader, SerializerInterface $serializer,  PropertyInfoExtractorInterface $propertyInfo) {
         $this->reader =  $reader;
         $this->serializer = $serializer;
         $this->propertyInfo = $propertyInfo;
     }
+    public function addCacheDir($dir) {
+        $this->cache_dir = $dir;
+    }
     
     public function addPath($paths) {
         $this->paths = $paths;
+    }
+    public function cached($name, $cache_dir, $classMap, $warmup = true) {
+        $mapPath = $cache_dir.'/'.$name.'.map';
+        $content = "<?php\nreturn ".var_export($classMap, true).';';
+        $this->createFile($mapPath, $content);
+        return $classMap;
+    }
+
+    protected function createFile($path, $content, $overwrite = true) {
+        $dir = dirname($path);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+        file_put_contents($path, $content);
+        chmod($path, 0664);
     }
     
     protected function classAutoload(array $classMap = [])

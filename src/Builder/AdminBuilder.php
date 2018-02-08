@@ -52,7 +52,7 @@ final class AdminBuilder
         return $maps; 
     }
     public function find($operationId) {
-        $operations = $this->collections();
+        $operations = $this->get();
         if(isset($operations[$operationId])) {
             return $operations[$operationId];
         }

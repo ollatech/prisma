@@ -16,4 +16,7 @@ final class Frontend
     public function collections() {
         return $this->builder->get();
     }
+    public function find(string $operationId) {
+        return $this->builder->find($operationId);
+    }
 }

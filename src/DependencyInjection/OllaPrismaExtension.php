@@ -44,6 +44,7 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
     private function reconfig(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        $container->setParameter('prisma_cache_dir', $config['cache_dir']);
         $container->setParameter('prisma_resource_paths', $config['mapping']['resource_paths']);
         $container->setParameter('prisma_operation_paths', $config['mapping']['operation_paths']);
         $container->setParameter('prisma_admin_paths', $config['mapping']['admin_paths']);

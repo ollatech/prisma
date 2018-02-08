@@ -16,4 +16,7 @@ final class Resource
     public function collections() {
         return $this->builder->get();
     }
+    public function find(string $resourceId) {
+        return $this->builder->find($operationId);
+    }
 }

@@ -12,7 +12,7 @@ final class Operation extends Discover implements DiscoverInterface
     protected $propertyInfo;
     protected $paths;
 
-    public function classes() {
+    public function classes($name, $cache_dir) {
         $discovers = $this->scanDir($this->paths, ['php']);
         $classMap = [];
         $resources = [];
@@ -21,6 +21,7 @@ final class Operation extends Discover implements DiscoverInterface
             $resources[] = $className;
         }
         $this->classAutoload($classMap);
+        $this->cached($name, $cache_dir, $classMap);
         return $resources;
     }
     

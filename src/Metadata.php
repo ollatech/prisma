@@ -35,10 +35,19 @@ final class Metadata implements MetadataInterface
     public function operations() {
         return $this->operation->collections();
     }
+    public function operation(string $operationId) {
+        return $this->operation->find($operationId);
+    }
     public function admins() {
         return $this->admin->collections();
     }
+    public function admin(string $operationId) {
+        return $this->admin->find($operationId);
+    }
     public function frontends() {
         return $this->frontend->collections();
+    }
+    public function frontend(string $operationId) {
+        return $this->frontend->find($operationId);
     }
 }

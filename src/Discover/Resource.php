@@ -8,7 +8,7 @@ use Symfony\Component\PropertyInfo\Type;
 
 final class Resource extends Discover implements DiscoverInterface
 {
-    public function classes() {
+    public function classes($name, $cache_dir) {
         $discovers = $this->scanDir($this->paths, ['php']);
         $classMap = [];
         $resources = [];
@@ -18,6 +18,7 @@ final class Resource extends Discover implements DiscoverInterface
                 $resources[$annotation['id']] = $annotation;
             }
         }
+        $this->cached($name, $cache_dir, $classMap);
         return $resources;
     }
 

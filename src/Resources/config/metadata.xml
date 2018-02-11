@@ -35,6 +35,7 @@
     <argument type="service" id="Olla\Prisma\Discover\Resource" />
     <argument type="service" id="Olla\Prisma\Factory\Resource" />
   </service>
+  
   <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation" />
 
   <service id="Olla\Prisma\Builder\OperationBuilder" class="Olla\Prisma\Builder\OperationBuilder" >
@@ -58,10 +59,10 @@
   
 
   <service id="olla.metadata" class="Olla\Prisma\AnnotedMetadata" >
-    <argument type="service" id="Olla\Prisma\ResourceBuilder" />
-    <argument type="service" id="Olla\Prisma\OperationBuilder" />
-    <argument type="service" id="Olla\Prisma\AdminBuilder" />
-    <argument type="service" id="Olla\Prisma\FrontendBuilder" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceBuilder" />
+    <argument type="service" id="Olla\Prisma\Builder\OperationBuilder" />
+    <argument type="service" id="Olla\Prisma\Builder\AdminBuilder" />
+    <argument type="service" id="Olla\Prisma\Builder\FrontendBuilder" />
   </service>
   
 </services>

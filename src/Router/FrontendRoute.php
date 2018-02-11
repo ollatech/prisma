@@ -10,7 +10,7 @@ use Symfony\Component\Config\Loader\Loader;
 final class FrontendRoute extends Loader
 {
 	private $metadata;
-	private $controller = 'Olla\Prisma\Placeholder\FrontendController';
+	private $controller = 'Olla\Prisma\Controller';
 	public function __construct(MetadataInterface $metadata)
 	{
 		$this->metadata = $metadata;
@@ -34,6 +34,7 @@ final class FrontendRoute extends Loader
 			$route = [];
 			$route['_controller'] = $this->controller;
 			$route['_operation'] = $op->getId();
+			$route['_carrier'] = 'frontend';
 			$routeCollection->add($opId, new Route(
 				$path, 
 				$route+[],

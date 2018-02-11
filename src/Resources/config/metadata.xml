@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-	<services>
-		
-
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+  <services>
    <!--discover -->
    <service id="Olla\Prisma\Discover\Admin" class="Olla\Prisma\Discover\Admin" >
      <argument type="service" id="annotation_reader" />
@@ -26,22 +24,45 @@
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
    </service>
- 
+   
 
    <!--Factory-->
-   <service id="Olla\Prisma\Factory\Operation" class="Olla\Prisma\Factory\Operation" >
+   <service id="Olla\Prisma\Factory\Operation" class="Olla\Prisma\Factory\Operation" />
+   <service id="Olla\Prisma\Factory\Resource" class="Olla\Prisma\Factory\Resource" />
+   
 
-   </service>
-   <service id="Olla\Prisma\Factory\Resource" class="Olla\Prisma\Factory\Resource" >
+   <service id="Olla\Prisma\Builder\ResourceBuilder" class="Olla\Prisma\Builder\ResourceBuilder" >
+    <argument type="service" id="Olla\Prisma\Discover\Resource" />
+    <argument type="service" id="Olla\Prisma\Factory\Resource" />
+  </service>
+  <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation" />
 
-   </service>
- 
- 
+  <service id="Olla\Prisma\Builder\OperationBuilder" class="Olla\Prisma\Builder\OperationBuilder" >
+    <argument type="service" id="Olla\Prisma\Discover\Operation" />
+    <argument type="service" id="Olla\Prisma\Discover\Resource" />
+    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+  <service id="Olla\Prisma\Builder\AdminBuilder" class="Olla\Prisma\Builder\AdminBuilder" >
+    <argument type="service" id="Olla\Prisma\Discover\Admin" />
+    <argument type="service" id="Olla\Prisma\Discover\Resource" />
+    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+  <service id="Olla\Prisma\Builder\FrontendBuilder" class="Olla\Prisma\Builder\FrontendBuilder" >
+    <argument type="service" id="Olla\Prisma\Discover\Frontend" />
+    <argument type="service" id="Olla\Prisma\Discover\Resource" />
+    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+  
 
-   <!--Command-->
-   <service id="Olla\Prisma\Command\MetadataCommand" class="Olla\Prisma\Command\MetadataCommand" >
-     <argument type="service" id="Olla\Prisma\Metadata" />
-     <tag name="console.command"  />
-   </service>
- </services>
+  <service id="olla.metadata" class="Olla\Prisma\AnnotedMetadata" >
+    <argument type="service" id="Olla\Prisma\ResourceBuilder" />
+    <argument type="service" id="Olla\Prisma\OperationBuilder" />
+    <argument type="service" id="Olla\Prisma\AdminBuilder" />
+    <argument type="service" id="Olla\Prisma\FrontendBuilder" />
+  </service>
+  
+</services>
 </container>

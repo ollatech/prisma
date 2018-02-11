@@ -10,7 +10,7 @@ use Symfony\Component\Config\Loader\Loader;
 final class GraphqlRoute extends Loader
 {
 	private $metadata;
-	private $controller = 'Olla\Prisma\Placeholder\Controller';
+	private $controller = 'Olla\Prisma\Controller';
 	public function __construct(MetadataInterface $metadata)
 	{
 		$this->metadata = $metadata;

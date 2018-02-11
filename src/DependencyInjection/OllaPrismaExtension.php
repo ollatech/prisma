@@ -38,7 +38,6 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $this->reconfig($configs, $container);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('metadata.xml');
-        $loader->load('builder.xml');
         $loader->load('route.xml');
     }
     private function reconfig(array $configs, ContainerBuilder $container) {

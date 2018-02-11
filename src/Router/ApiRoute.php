@@ -7,11 +7,10 @@ use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Config\Loader\Loader;
 
 
-final class AdminRoute extends Loader
+final class ApiRoute extends Loader
 {
-	
 	private $metadata;
-	private $controller = 'Olla\Prisma\Placeholder\Controller';
+	private $controller = 'Olla\Prisma\Controller';
 	public function __construct(MetadataInterface $metadata)
 	{
 		$this->metadata = $metadata;
@@ -25,7 +24,7 @@ final class AdminRoute extends Loader
      */
 	public function load($data, $type = null): RouteCollection
 	{
-		$operations = $this->metadata->admins();
+		$operations = $this->metadata->operations();
 		$routeCollection = new RouteCollection();
 		
 		foreach ($operations as $opId => $op) {
@@ -35,6 +34,7 @@ final class AdminRoute extends Loader
 			$route = [];
 			$route['_controller'] = $this->controller;
 			$route['_operation'] = $op->getId();
+			$route['_carrier'] = 'restapi';
 			$routeCollection->add($opId, new Route(
 				$path, 
 				$route+[],
@@ -51,6 +51,6 @@ final class AdminRoute extends Loader
 
 	public function supports($resource, $type = null)
 	{
-		return 'olla_admin' === $type;
+		return 'olla_api' === $type;
 	}	
 }

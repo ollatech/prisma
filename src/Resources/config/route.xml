@@ -3,41 +3,27 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 	<services>
-    <service id="Olla\Prisma\Placeholder\Controller" class="Olla\Prisma\Placeholder\Controller" />
-    <service id="Olla\Prisma\Placeholder\Operation" class="Olla\Prisma\Placeholder\Operation" />
+    <service id="olla.request_stack" class="request_stack" />
+   
+    <service id="Olla\Prisma\Controller" class="Olla\Prisma\Controller" public="true">
+      <argument type="service" id="olla.operation" />
+      <argument type="service" id="olla.request_stack" />
+    </service>
+    
 
-    <service id="Olla\Prisma\Controller\ApiController" class="Olla\Prisma\Controller\ApiController" public="true">
-      <argument type="service" id="Olla\Prisma\Metadata" />
-      <argument type="service" id="service_container" />
-      <argument type="service" id="olla.conneg_component" />
-      <argument type="service" id="olla.gate_component" />
-    </service>
-    <service id="Olla\Prisma\Controller\AdminController" class="Olla\Prisma\Controller\AdminController" public="true" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
-      <argument type="service" id="service_container" />
-      <argument type="service" id="olla.theme_component" />
-      <argument type="service" id="olla.gate_component" />
-    </service>
-    <service id="Olla\Prisma\Controller\FrontendController" class="Olla\Prisma\Controller\FrontendController" public="true" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
-      <argument type="service" id="service_container" />
-      <argument type="service" id="olla.theme_component" />
-      <argument type="service" id="olla.gate_component" />
-    </service>
-
-    <service id="Olla\Prisma\Route\AdminRoute" class="Olla\Prisma\Route\AdminRoute" >
+    <service id="Olla\Prisma\Router\AdminRoute" class="Olla\Prisma\Route\AdminRoute" >
       <argument type="service" id="Olla\Prisma\Metadata" />
       <tag name="routing.loader" />
     </service>
-    <service id="Olla\Prisma\Route\ApiRoute" class="Olla\Prisma\Route\ApiRoute" >
+    <service id="Olla\Prisma\Router\ApiRoute" class="Olla\Prisma\Route\ApiRoute" >
       <argument type="service" id="Olla\Prisma\Metadata" />
       <tag name="routing.loader" />
     </service>
-    <service id="Olla\Prisma\Route\FrontendRoute" class="Olla\Prisma\Route\FrontendRoute" >
+    <service id="Olla\Prisma\Router\FrontendRoute" class="Olla\Prisma\Route\FrontendRoute" >
       <argument type="service" id="Olla\Prisma\Metadata" />
       <tag name="routing.loader" />
     </service>
-    <service id="Olla\Prisma\Route\GraphqlRoute" class="Olla\Prisma\Route\GraphqlRoute" >
+    <service id="Olla\Prisma\Router\GraphqlRoute" class="Olla\Prisma\Route\GraphqlRoute" >
       <argument type="service" id="Olla\Prisma\Metadata" />
       <tag name="routing.loader" />
     </service>

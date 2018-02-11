@@ -12,19 +12,19 @@
     
 
     <service id="Olla\Prisma\Router\AdminRoute" class="Olla\Prisma\Route\AdminRoute" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
+      <argument type="service" id="olla.metadata" />
       <tag name="routing.loader" />
     </service>
     <service id="Olla\Prisma\Router\ApiRoute" class="Olla\Prisma\Route\ApiRoute" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
+      <argument type="service" id="olla.metadata" />
       <tag name="routing.loader" />
     </service>
     <service id="Olla\Prisma\Router\FrontendRoute" class="Olla\Prisma\Route\FrontendRoute" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
+      <argument type="service" id="olla.metadata" />
       <tag name="routing.loader" />
     </service>
     <service id="Olla\Prisma\Router\GraphqlRoute" class="Olla\Prisma\Route\GraphqlRoute" >
-      <argument type="service" id="Olla\Prisma\Metadata" />
+      <argument type="service" id="olla.metadata" />
       <tag name="routing.loader" />
     </service>
   </services>

@@ -12,8 +12,7 @@ final class PathCompilerPass implements CompilerPassInterface
     {
         $project_dir = $container->getParameter('kernel.project_dir');
         $cache_dir = $project_dir.'/var/prisma';
-
-
+        
         if($container->hasDefinition('Olla\Prisma\Discover\Resource')) {
             $discover = $container->findDefinition('Olla\Prisma\Discover\Resource');
             $discover->addMethodCall(

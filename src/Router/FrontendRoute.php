@@ -1,7 +1,7 @@
 <?php
-namespace Olla\Prisma\Route;
+namespace Olla\Prisma\Router;
 
-use Olla\Prisma\MetadataInterface;
+use Olla\Prisma\Metadata;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Config\Loader\Loader;
@@ -11,7 +11,7 @@ final class FrontendRoute extends Loader
 {
 	private $metadata;
 	private $controller = 'Olla\Prisma\Controller';
-	public function __construct(MetadataInterface $metadata)
+	public function __construct(Metadata $metadata)
 	{
 		$this->metadata = $metadata;
 	}
@@ -26,15 +26,15 @@ final class FrontendRoute extends Loader
 	{
 		$operations = $this->metadata->frontends();
 		$routeCollection = new RouteCollection();
-		
 		foreach ($operations as $opId => $op) {
 			$op_route = $op->getRoute();
-			$path = isset($op_route['path']) ? $op_route['path']: '/';
+			$path = isset($op_route['path']) ? $op_route['path'].'.{_format}': '/';
 			$method = isset($op_route['method']) ? $op_route['method']: null;
 			$route = [];
 			$route['_controller'] = $this->controller;
 			$route['_operation'] = $op->getId();
 			$route['_carrier'] = 'frontend';
+			$route['_format'] = 'html';
 			$routeCollection->add($opId, new Route(
 				$path, 
 				$route+[],

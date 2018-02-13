@@ -1,7 +1,7 @@
 <?php
-namespace Olla\Prisma\Route;
+namespace Olla\Prisma\Router;
 
-use Olla\Prisma\MetadataInterface;
+use Olla\Prisma\Metadata;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Config\Loader\Loader;
@@ -11,7 +11,7 @@ final class GraphqlRoute extends Loader
 {
 	private $metadata;
 	private $controller = 'Olla\Prisma\Controller';
-	public function __construct(MetadataInterface $metadata)
+	public function __construct(Metadata $metadata)
 	{
 		$this->metadata = $metadata;
 	}

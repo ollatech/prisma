@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Olla\Prisma;
@@ -16,7 +15,7 @@ final class AnnotedMetadata implements Metadata
     private $operation;
     private $admin;
     private $frontend;
-
+    
     public function __construct(
         ResourceBuilder $resource,
         OperationBuilder $operation,

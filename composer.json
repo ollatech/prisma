@@ -21,8 +21,7 @@
         "symfony/property-info": "^3.1 || ^4.0",
         "symfony/serializer": "^3.1 || ^4.0",
         "symfony/yaml": "^3.3 || ^4.0",
-        "doctrine/annotations": "^1.2",
-        "olla/operation": "*"
+        "doctrine/annotations": "^1.2"
     },
     "require-dev": {
         "olla/devtool": "*"

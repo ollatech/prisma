@@ -56,6 +56,11 @@ final class Operation {
      * @var string
      */
     public $js;
+
+    /**
+     * @var string
+     */
+    public $css;
     
     /**
      * @var array

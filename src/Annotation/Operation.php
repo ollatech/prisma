@@ -51,6 +51,11 @@ final class Operation {
      * @var string
      */
     public $template;
+
+    /**
+     * @var string
+     */
+    public $js;
     
     /**
      * @var array

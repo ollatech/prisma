@@ -73,9 +73,15 @@ final class Operation
 
 
     /**
-     * @var array | null
+     * @var string | null
      */
     public $js;
+
+    /**
+     * @var string | null
+     */
+    public $css;
+
 
 
 
@@ -340,7 +346,7 @@ final class Operation
     }
 
     /**
-     * @return array | null
+     * @return string | null
      */
     public function getJs()
     {
@@ -348,13 +354,33 @@ final class Operation
     }
 
     /**
-     * @param array | null $js
+     * @param string | null $js
      *
      * @return self
      */
     public function setJs($js)
     {
         $this->js = $js;
+
+        return $this;
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getCss()
+    {
+        return $this->css;
+    }
+
+    /**
+     * @param string | null $css
+     *
+     * @return self
+     */
+    public function setCss($css)
+    {
+        $this->css = $css;
 
         return $this;
     }

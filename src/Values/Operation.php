@@ -39,10 +39,7 @@ final class Operation
      */
     public $responses;
 
-    /**
-     * @var array | null
-     */
-    public $route;
+    
 
     /**
      * @var array | null
@@ -63,6 +60,22 @@ final class Operation
      * @var string
      */
     public $controller;
+
+    /**
+     * @var array | null
+     */
+    public $route;
+
+    /**
+     * @var string | null
+     */
+    public $template;
+
+
+    /**
+     * @var array | null
+     */
+    public $js;
 
 
 
@@ -209,26 +222,6 @@ final class Operation
     /**
      * @return array | null
      */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
-    /**
-     * @param array | null $route
-     *
-     * @return self
-     */
-    public function setRoute($route)
-    {
-        $this->route = $route;
-
-        return $this;
-    }
-
-    /**
-     * @return array | null
-     */
     public function getPermissions()
     {
         return $this->permissions;
@@ -302,6 +295,66 @@ final class Operation
     public function setController($controller)
     {
         $this->controller = $controller;
+
+        return $this;
+    }
+
+    /**
+     * @return array | null
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param array | null $route
+     *
+     * @return self
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * @return string | null
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string | null $template
+     *
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * @return array | null
+     */
+    public function getJs()
+    {
+        return $this->js;
+    }
+
+    /**
+     * @param array | null $js
+     *
+     * @return self
+     */
+    public function setJs($js)
+    {
+        $this->js = $js;
 
         return $this;
     }

@@ -7,6 +7,7 @@ namespace Olla\Prisma\Annotation;
  * @Target({"CLASS"})
  */
 final class Operation {
+
     /**
      * @var string
      */
@@ -30,14 +31,10 @@ final class Operation {
      * @var array
      */
     public $permissions = [];
+    
     /**
-     * @var array
-     */
-    public $route = [];
-
-     /**
-     * @var array
-     */
+    * @var array
+    */
     public $tags;
 
     /**
@@ -49,4 +46,14 @@ final class Operation {
      * @var string
      */
     public $controller;
+
+    /**
+     * @var string
+     */
+    public $template;
+    
+    /**
+     * @var array
+     */
+    public $route = [];
 }

@@ -5,6 +5,7 @@ namespace Olla\Prisma\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Composer\Autoload\ClassLoader;
 
 final class PathCompilerPass implements CompilerPassInterface
 {
@@ -22,8 +23,11 @@ final class PathCompilerPass implements CompilerPassInterface
                 'classes', ['resource', $cache_dir]
             );
             $classMapFile = $cache_dir.'/resource.map';
+
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
         }
+
         if($container->hasDefinition('Olla\Prisma\Discover\Operation')) {
             $discover = $container->findDefinition('Olla\Prisma\Discover\Operation');
             $discover->addMethodCall(
@@ -34,6 +38,7 @@ final class PathCompilerPass implements CompilerPassInterface
             );
             $classMapFile = $cache_dir.'/operation.map';
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
                 $definition = $container->setDefinition($class, new Definition($class));
                 $definition->setPublic(true);
@@ -50,6 +55,7 @@ final class PathCompilerPass implements CompilerPassInterface
             );
             $classMapFile = $cache_dir.'/admin.map';
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
                 $definition = $container->setDefinition($class, new Definition($class));
                 $definition->setPublic(true);
@@ -66,6 +72,7 @@ final class PathCompilerPass implements CompilerPassInterface
             );
             $classMapFile = $cache_dir.'/frontend.map';
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
                 $definition = $container->setDefinition($class, new Definition($class));
                 $definition->setPublic(true);
@@ -134,6 +141,21 @@ final class PathCompilerPass implements CompilerPassInterface
             $operation->addMethodCall(
                 'addController', [$container->getParameter('prisma_graphql_entrypoint')]
             );
+        }
+    }
+
+    protected function classAutoload(array $classMap = [])
+    {
+        if ($classMap) {
+            static $mapClassLoader = null;
+            if (null === $mapClassLoader) {
+                $mapClassLoader = new ClassLoader();
+                $mapClassLoader->setClassMapAuthoritative(true);
+            } else {
+                $mapClassLoader->unregister();
+            }
+            $mapClassLoader->addClassMap($classMap);
+            $mapClassLoader->register();
         }
     }
 }

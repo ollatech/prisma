@@ -25,7 +25,6 @@ final class Frontend  extends Discover implements DiscoverInterface
     }
 
     public function collections() {
-
         $discovers = $this->scanDir($this->paths, ['php']);
 
         $classMap = [];

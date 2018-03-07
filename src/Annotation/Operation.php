@@ -51,7 +51,27 @@ final class Operation {
      * @var string
      */
     public $template;
+    
+    /**
+     * @var array
+     */
+    public $route = [];
+    /**
+     * @var array
+     */
+    public $assets = [];
+    /**
+     * @var array
+     */
+    public $react = [];
 
+    /**
+     * @var array
+     */
+    public $options = [];
+
+    //deprecated
+    
     /**
      * @var string
      */
@@ -61,9 +81,4 @@ final class Operation {
      * @var string
      */
     public $css;
-    
-    /**
-     * @var array
-     */
-    public $route = [];
 }

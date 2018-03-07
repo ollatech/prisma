@@ -4,6 +4,7 @@ namespace Olla\Prisma\Values;
 
 final class Operation
 {
+
     /**
      * @var string
      */
@@ -39,8 +40,6 @@ final class Operation
      */
     public $responses;
 
-    
-
     /**
      * @var array | null
      */
@@ -70,6 +69,21 @@ final class Operation
      * @var string | null
      */
     public $template;
+
+    /**
+     * @var array
+     */
+    public $assets = [];
+
+    /**
+     * @var array
+     */
+    public $react = [];
+
+    /**
+     * @var array
+     */
+    public $options = [];
 
 
     /**
@@ -341,6 +355,66 @@ final class Operation
     public function setTemplate($template)
     {
         $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    /**
+     * @param array $assets
+     *
+     * @return self
+     */
+    public function setAssets(array $assets)
+    {
+        $this->assets = $assets;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getReact()
+    {
+        return $this->react;
+    }
+
+    /**
+     * @param array $react
+     *
+     * @return self
+     */
+    public function setReact(array $react)
+    {
+        $this->react = $react;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return self
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
 
         return $this;
     }

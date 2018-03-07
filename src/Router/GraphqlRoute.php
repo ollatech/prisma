@@ -41,7 +41,6 @@ final class GraphqlRoute extends Loader
 			));
 		return $routeCollection;
 	}
-
 	public function supports($resource, $type = null)
 	{
 		return 'olla_graphql' === $type;

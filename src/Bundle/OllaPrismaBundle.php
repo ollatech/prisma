@@ -1,7 +1,7 @@
 <?php
-namespace Olla\Prisma;
+namespace Olla\Prisma\Bundle;
 
-use Olla\Prisma\Compiler\PathCompilerPass;
+use Olla\Prisma\Bundle\Compiler\PathCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

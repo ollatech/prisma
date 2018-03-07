@@ -62,6 +62,11 @@ abstract class Discover
     protected function scanDir(array $directories)
     {
         foreach ($directories as $path) {
+ 
+            $dir = dirname($path);
+            if (!is_dir($path)) {
+                mkdir($path, 0775, true);
+            }
             $iterator = new \RegexIterator(
                 new \RecursiveIteratorIterator(
                   new \RecursiveDirectoryIterator($path, \FilesystemIterator::SKIP_DOTS),

@@ -14,6 +14,20 @@ final class Operation implements FactoryInterface {
 		$op->setAction($annt['action']);
 		$op->setResource($annt['resource']);
 		$op->setController($annt['controller']);
+
+		if(isset($annt['template'])) {
+			$op->setTemplate($annt['template']);
+		}
+		if(isset($annt['react'])) {
+			$op->setReact($annt['react']);
+		}
+		if(isset($annt['assets'])) {
+			$op->setAssets($annt['assets']);
+		}
+		if(isset($annt['options'])) {
+			$op->setOptions($annt['options']);
+		}
+
 		return $op;
 	}
 }

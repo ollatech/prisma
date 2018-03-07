@@ -4,12 +4,10 @@
 	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 	<services>
     <service id="olla.request_stack" alias="request_stack" />
-   
     <service id="Olla\Prisma\Controller" class="Olla\Prisma\Controller" public="true">
       <argument type="service" id="olla.request_stack" />
       <argument type="service" id="olla.operation" />
     </service>
-    
     <service id="Olla\Prisma\Router\AdminRoute" class="Olla\Prisma\Router\AdminRoute" >
       <argument type="service" id="olla.metadata" />
       <tag name="routing.loader" />

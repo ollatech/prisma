@@ -1,6 +1,6 @@
 <?php
 
-namespace Olla\Prisma\DependencyInjection;
+namespace Olla\Prisma\Bundle\DependencyInjection;
 
 
 use Symfony\Component\Cache\Adapter\ArrayAdapter;

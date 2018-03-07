@@ -47,7 +47,6 @@ final class AdminRoute extends Loader
 				$method,
 				''));
 		}
-
 		return $routeCollection;
 	}
 

@@ -16,8 +16,8 @@ final class ApiRoute extends Loader
 		$this->metadata = $metadata;
 	}
 	public function addController($controller) {
-        $this->controller = $controller;
-    }
+		$this->controller = $controller;
+	}
 	
 	/**
      * {@inheritdoc}
@@ -49,7 +49,6 @@ final class ApiRoute extends Loader
 
 		return $routeCollection;
 	}
-
 	public function supports($resource, $type = null)
 	{
 		return 'olla_api' === $type;

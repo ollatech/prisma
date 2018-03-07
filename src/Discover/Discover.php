@@ -6,7 +6,7 @@ use Composer\Autoload\ClassLoader;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
-
+use Olla\Prisma\Annotation\Operation as OperationAnnotation;
 
 abstract class Discover
 {
@@ -15,12 +15,96 @@ abstract class Discover
     protected $propertyInfo;
     protected $paths;
     protected $cache_dir;
+    protected $default_dir;
+    protected $module_dir;
+    protected $app_dir;
 
-    public function __construct(Reader $reader, SerializerInterface $serializer,  PropertyInfoExtractorInterface $propertyInfo) {
+    public function __construct(Reader $reader, SerializerInterface $serializer,  PropertyInfoExtractorInterface $propertyInfo, $defaultDir = [], $moduleDir = [], $appDir = []) {
         $this->reader =  $reader;
         $this->serializer = $serializer;
         $this->propertyInfo = $propertyInfo;
+        $this->default_dir = $defaultDir;
+        $this->module_dir = $moduleDir;
+        $this->app_dir = $appDir;
     }
+
+    public function operations() {
+        return array_merge($this->defaultOperations(), $this->moduleOperations(), $this->appOperations());
+    }
+
+    public function defaultOperations()
+    {
+        $resources = [];
+        $discovers = $this->scanDir($this->default_dir, ['php']);
+        foreach ($discovers as $className => $classFile) {
+            if(null !== $annotation = $this->getOperation($className)) {
+                $resources[$annotation['url']] = array_merge($annotation, ['path' => $classFile]);
+            }
+        }
+        return $resources;
+    }
+    public function moduleOperations() {
+        $resources = [];
+        $discovers = $this->scanDir($this->module_dir, ['php']);
+        foreach ($discovers as $className => $classFile) {
+            if(null !== $annotation = $this->getOperation($className)) {
+                $resources[$annotation['url']] = array_merge($annotation, ['path' => $classFile]);
+            }
+        }
+        return $resources;
+    }
+
+    public function appOperations() {
+        $resources = [];
+        $discovers = $this->scanDir($this->paths, ['php']);
+        foreach ($discovers as $className => $classFile) {
+            if(null !== $annotation = $this->getOperation($className)) {
+                $resources[$annotation['url']] = array_merge($annotation, ['path' => $classFile]);
+            }
+        }
+        return $resources;
+    }
+
+    public function getOperation($className) {
+        try {
+            $reflectionClass = new \ReflectionClass($className);
+        } catch (\ReflectionException $reflectionException) {
+            return null;
+        }
+        $annotation = $this->reader->getClassAnnotation($reflectionClass, OperationAnnotation::class);
+        if(!$annotation) {
+            return null;
+        }
+        $data = json_decode($this->serializer->serialize($annotation, 'json'), true);
+        if(!isset($data['id'])) {
+            return null;
+        }
+        $url = '';
+        if(isset($data['route'])) {
+            if(!isset($data['route']['path'])) {
+                return null;
+            }
+            if(!isset($data['route']['method'])) {
+                return null;
+            }
+            $url = $data['route']['method'].$data['route']['path'];
+        } else {
+            return null;
+        }
+    
+        return [
+            'url' => $url,
+            'id' => $data['id'],
+            'namespace' => isset($data['className']) ? $data['className'] : $className
+        ];
+    }
+
+    public function defaults() {
+        $operations = [];
+        $operations['welcome'] = new OperationAnnotation();
+        return $operations;
+    }
+    
     public function addCacheDir($dir) {
         $this->cache_dir = $dir;
     }
@@ -62,7 +146,6 @@ abstract class Discover
     protected function scanDir(array $directories)
     {
         foreach ($directories as $path) {
- 
             $dir = dirname($path);
             if (!is_dir($path)) {
                 mkdir($path, 0775, true);

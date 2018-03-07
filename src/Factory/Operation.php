@@ -27,7 +27,6 @@ final class Operation implements FactoryInterface {
 		if(isset($annt['options'])) {
 			$op->setOptions($annt['options']);
 		}
-
 		return $op;
 	}
 }

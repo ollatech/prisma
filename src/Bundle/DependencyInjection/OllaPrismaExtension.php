@@ -38,7 +38,6 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $this->reconfig($configs, $container);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('metadata.xml');
-        $loader->load('route.xml');
     }
     private function reconfig(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
@@ -66,5 +65,59 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $container->setParameter('prisma_admin_entrypoint', $config['entrypoint']['admin']);
         $container->setParameter('prisma_frontend_entrypoint', $config['entrypoint']['frontend']);
         $container->setParameter('prisma_graphql_entrypoint', $config['entrypoint']['graphql']);
+
+        //dirs
+        $vendorDir = dirname(dirname(__FILE__));
+        $baseDir = dirname($vendorDir);
+        $api_default_dirs = [
+            'olla' => $baseDir.'/Operations/Api'
+        ];;
+        $api_module_dirs = [];
+        $admin_default_dirs = [
+            'olla' => $baseDir.'/Operations/Admin'
+        ];;
+        $admin_module_dirs = [];
+        $frontend_default_dirs = [
+            'olla' => $baseDir.'/Operations/Frontend'
+        ];
+        $frontend_module_dirs = [];
+        $resource_default_dirs = [];
+        $resource_module_dirs = [];
+     
+        if(isset($config['dirs'])) {
+            $dirs = $config['dirs'];
+            if(isset($dirs['api_default'])) {
+                $api_default_dirs = $dirs['api_default'];
+            }
+            if(isset($dirs['api_module'])) {
+                $api_module_dirs = $dirs['api_module'];
+            }
+            if(isset($dirs['admin_default'])) {
+                $admin_default_dirs = $dirs['admin_default'];
+            }
+            if(isset($dirs['admin_module'])) {
+                $admin_module_dirs = $dirs['admin_module'];
+            }
+            if(isset($dirs['frontend_default'])) {
+                $frontend_default_dirs = $dirs['frontend_default'];
+            }
+            if(isset($dirs['frontend_module'])) {
+                $frontend_module_dirs = $dirs['frontend_module'];
+            }
+            if(isset($dirs['resource_default'])) {
+                $api_default_dirs = $dirs['resource_default'];
+            }
+            if(isset($dirs['resource_module'])) {
+                $resource_module_dirs = $dirs['resource_module'];
+            }
+        }
+        $container->setParameter('olla.api_default_dirs', $api_default_dirs);
+        $container->setParameter('olla.api_module_dirs', $api_module_dirs);
+        $container->setParameter('olla.admin_default_dirs', $admin_default_dirs);
+        $container->setParameter('olla.admin_module_dirs', $admin_module_dirs);
+        $container->setParameter('olla.frontend_default_dirs', $frontend_default_dirs);
+        $container->setParameter('olla.frontend_module_dirs', $frontend_module_dirs);
+        $container->setParameter('olla.resource_default_dirs', $resource_default_dirs);
+        $container->setParameter('olla.resource_module_dirs', $resource_module_dirs);
     }
 }

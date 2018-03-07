@@ -2,27 +2,37 @@
 <container xmlns="http://symfony.com/schema/dic/services"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+  
   <services>
    <!--discover -->
    <service id="Olla\Prisma\Discover\Admin" class="Olla\Prisma\Discover\Admin" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
+     <argument>%olla.admin_default_dirs%</argument>
+      <argument>%olla.admin_module_dirs%</argument>
+
    </service>
    <service id="Olla\Prisma\Discover\Frontend" class="Olla\Prisma\Discover\Frontend" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
+     <argument>%olla.frontend_default_dirs%</argument>
+      <argument>%olla.frontend_module_dirs%</argument>
    </service>
    <service id="Olla\Prisma\Discover\Operation" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
+     <argument>%olla.api_default_dirs%</argument>
+      <argument>%olla.api_module_dirs%</argument>
    </service>
    <service id="Olla\Prisma\Discover\Resource" class="Olla\Prisma\Discover\Resource" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
+     <argument>%olla.resource_default_dirs%</argument>
+      <argument>%olla.resource_module_dirs%</argument>
    </service>
    
 

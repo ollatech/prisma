@@ -12,32 +12,27 @@ final class Frontend  extends Discover implements DiscoverInterface
     protected $paths;
 
     public function classes($name, $cache_dir) {
-        $discovers = $this->scanDir($this->paths, ['php']);
         $classMap = [];
-        $resources = [];
-        foreach ($discovers as $className => $classFile) {
-            $classMap = array_merge($classMap, [$className => $classFile]);
-            $resources[] = $className;
+        foreach ($this->operations() as $id => $op) {
+            $classMap = array_merge($classMap, [$op['namespace'] => $op['path']]);
         }
         $this->classAutoload($classMap);
         $this->cached($name, $cache_dir, $classMap);
-        return $resources;
     }
 
     public function collections() {
-        $discovers = $this->scanDir($this->paths, ['php']);
-
-        $classMap = [];
         $resources = [];
-        foreach ($discovers as $className => $classFile) {
-            if(null !== $annotation = $this->get($className)) {
-                $classMap = array_merge($classMap, [$className => $classFile]);
+        foreach ($this->operations() as $id => $op) {
+            if(null !== $annotation = $this->get($op['namespace'])) {
                 $resources[$annotation['id']] = $annotation;
             }
         }
-        $this->classAutoload($classMap);
+        print_r($resources);
         return $resources;
     }
+
+   
+  
 
     public function get($className, array $options = []) {
         try {

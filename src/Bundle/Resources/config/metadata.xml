@@ -5,12 +5,12 @@
   
   <services>
    <!--discover -->
-   <service id="olla.admin_discover" class="Olla\Prisma\Discover\Admin" >
+   <service id="olla.admin_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.admin_default_dirs%</argument>
-      <argument>%olla.admin_module_dirs%</argument>
+    <argument>%olla.admin_module_dirs%</argument>
 
    </service>
    <service id="olla.frontend_discover" class="Olla\Prisma\Discover\Operation" >

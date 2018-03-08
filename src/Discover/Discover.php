@@ -86,12 +86,7 @@ abstract class Discover
         ];
     }
 
-    public function defaults() {
-        $operations = [];
-        $operations['welcome'] = new OperationAnnotation();
-        return $operations;
-    }
-    
+
     public function addCacheDir($dir) {
         $this->cache_dir = $dir;
     }

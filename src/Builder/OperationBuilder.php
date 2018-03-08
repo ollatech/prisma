@@ -3,7 +3,6 @@
 namespace Olla\Prisma\Builder;
 
 use Olla\Prisma\Builder\ResourceOperation;
-use Olla\Prisma\Data\Operation;
 use Olla\Prisma\Discover\DiscoverInterface;
 use Olla\Prisma\Factory\FactoryInterface;
 use Doctrine\Common\Inflector\Inflector;
@@ -33,7 +32,7 @@ final class OperationBuilder
         $resources = $this->resourceDiscover->collections();
         $maps = [];
         foreach ($resources as $className => $resource) {
-            $maps += $this->resourceOperation->create($resource);
+            $maps += $this->resourceOperation->createApi($resource);
         } 
         return $maps;
     }

@@ -1,18 +1,18 @@
 <?php
 
-namespace Olla\Prisma\Operation\Frontend;
+namespace Olla\Prisma\Operation\Admin;
 
 use Olla\Prisma\Annotation\Operation;
 
 /**
  * @Operation(
- * 	   id ="welcome",
+ * 	   id ="dashboard",
  *     path ="/",
  * 	   methods = "GET",
- * 	   template = "frontend/welcome.html.twig"
+ * 	   template = "admin/dashboard.html.twig"
  * )
  */
-class Welcome
+class Dashboard
 {
     public function __invoke() {
     	return [];

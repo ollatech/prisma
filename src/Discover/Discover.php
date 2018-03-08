@@ -76,24 +76,11 @@ abstract class Discover
             return null;
         }
         $data = json_decode($this->serializer->serialize($annotation, 'json'), true);
-        if(!isset($data['id'])) {
+        if(!isset($data['id']) || !isset($data['path']) || !isset($data['methods'])) {
             return null;
         }
-        $url = '';
-        if(isset($data['route'])) {
-            if(!isset($data['route']['path'])) {
-                return null;
-            }
-            if(!isset($data['route']['method'])) {
-                return null;
-            }
-            $url = $data['route']['method'].$data['route']['path'];
-        } else {
-            return null;
-        }
-    
         return [
-            'url' => $url,
+            'url' => json_encode($data['methods']).$data['path'],
             'id' => $data['id'],
             'namespace' => isset($data['className']) ? $data['className'] : $className
         ];

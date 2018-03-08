@@ -7,11 +7,10 @@ use Composer\Autoload\ClassLoader;
 
 final class Operation extends Discover implements DiscoverInterface
 {
-    protected $reader;
+     protected $reader;
     protected $serializer;
     protected $propertyInfo;
     protected $paths;
-
     public function classes($name, $cache_dir) {
         $classMap = [];
         foreach ($this->operations() as $id => $op) {
@@ -28,9 +27,9 @@ final class Operation extends Discover implements DiscoverInterface
                 $resources[$annotation['id']] = $annotation;
             }
         }
-
         return $resources;
     }
+
 
     public function get($className, array $options = []) {
         try {
@@ -46,23 +45,11 @@ final class Operation extends Discover implements DiscoverInterface
         if(!isset($data['id'])) {
             throw new \Exception(sprintf("Operation class %s invalid, you need put 'id' on parameters", $className));
         }
-        if(!isset($data['alias'])) {
-            throw new \Exception(sprintf("Operation class %s invalid, you need put 'alias' on parameters", $className));
+        if(!isset($data['path'])) {
+            throw new \Exception(sprintf("Operation class %s invalid, you need put 'path' on parameters", $className));
         }
-        if(!isset($data['route'])) {
-            throw new \Exception(sprintf("Operation class %s invalid, you need put 'route' on parameters", $className));
-        }
-        if(!isset($data['permissions'])) {
-            $data['permissions'] = ['public'];
-        }
-        if(!isset($data['tags'])) {
-            $data['tags'] = ['custom'];
-        }
-        if(!isset($data['action'])) {
-            $data['action'] = 'custom';
-        }
-        if(!isset($data['resource'])) {
-            $data['resource'] = '';
+        if(!isset($data['methods'])) {
+            throw new \Exception(sprintf("Operation class %s invalid, you need put 'methods' on parameters", $className));
         }
         if(!isset($data['controller'])) {
             $data['controller'] = $className;

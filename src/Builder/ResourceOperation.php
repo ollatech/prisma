@@ -1,11 +1,12 @@
 <?php
 
 namespace Olla\Prisma\Builder;
+
 use Doctrine\Common\Inflector\Inflector;
+use Olla\Prisma\Operation\Operation as OperationAnnotation;
 final class ResourceOperation {
 
 	protected $settings;
-
 	public function addSetting($setting, $value) {
 		$this->settings[$setting] = $value;
 		return $this;
@@ -19,14 +20,15 @@ final class ResourceOperation {
 			$id = $this->id('operation', $action, $resource);
 			$operation = [];
 			$operation['id'] = $id;
+			$operation['path'] = $this->path($action, $resourceAlias);
+			$operation['methods'] = $this->methods($action, $resourceAlias);
 			$operation['alias'] = $this->alias($action, $resource);
-			$operation['description'] = '';
 			$operation['arguments'] = $this->args($action, $resource);
 			$operation['tags'] = $this->tags($action, $resource);
 			$operation['action'] = $action;
-			$operation['route'] = $this->route($action, $resource);
 			$operation['resource'] = $resourceClass;
 			$operation['controller'] = $this->settings[$action.'_operation'];
+			$operation['route'] = [];
 			$maps[$id] = $operation;
 		}
 		return $maps;
@@ -39,14 +41,15 @@ final class ResourceOperation {
 			$id = $this->id('admin', $action, $resource);
 			$operation = [];
 			$operation['id'] = $id;
+			$operation['path'] = $this->path($action, $resourceAlias);
+			$operation['methods'] = $this->methods($action, $resourceAlias);
 			$operation['alias'] = $this->alias($action, $resource);
-			$operation['description'] = '';
 			$operation['arguments'] = $this->args($action, $resource);
 			$operation['tags'] = $this->tags($action, $resource);
 			$operation['action'] = $action;
-			$operation['route'] = $this->route($action, $resource);
 			$operation['resource'] = $resourceClass;
 			$operation['controller'] = $this->settings[$action.'_admin'];
+			$operation['route'] = [];
 			$maps[$id] = $operation;
 		}
 		return $maps;
@@ -55,6 +58,52 @@ final class ResourceOperation {
 	private function id($broker, $action, $resource) {
 		$resourceAlias = $resource['alias'];
 		return strtolower($resourceAlias).'_'.$action.'_'.$broker;
+	}
+	private function path($action, $alias) {
+		$plural = strtolower(Inflector::pluralize($alias));
+		switch ($action) {
+			case 'collection':
+			return '/'.$plural;
+			break;
+			case 'item':
+			return '/'.$plural.'/{id}';
+			case 'item_form':
+			return '/'.$plural.'/{id}/edit';
+			break;
+			case 'create':
+			return '/'.$plural;
+			break;
+			case 'update':
+			return '/'.$plural.'/{id}';
+			break;
+			case 'delete':
+			return  '/'.$plural.'/{id}';
+			default:
+			break;
+		}
+	}
+	private function methods($action, $alias) {
+		$plural = strtolower(Inflector::pluralize($alias));
+		switch ($action) {
+			case 'collection':
+			return ['GET'];
+			break;
+			case 'item':
+			return ['GET'];
+			case 'item_form':
+			return ['GET'];
+			break;
+			case 'create':
+			return ['POST'];
+			break;
+			case 'update':
+			return ['PUT'];
+			break;
+			case 'delete':
+			return  ['DELETE'];
+			default:
+			break;
+		}
 	}
 	private function alias($action, $resource) {
 		$resourceAlias = $resource['alias'];

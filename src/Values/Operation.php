@@ -4,7 +4,6 @@ namespace Olla\Prisma\Values;
 
 final class Operation
 {
-
     /**
      * @var string
      */
@@ -13,10 +12,49 @@ final class Operation
     /**
      * @var string
      */
+    public $version;
+
+    /**
+     * @var string
+     */
+    public $path;
+
+    /**
+     * @var array | null
+     */
+    public $methods = [];
+
+    /**
+     * @var string
+     */
+    public $controller;
+
+    /**
+     * @var array | null
+     */
+    public $route = [];
+
+    /**
+     * @var string
+     */
+    public $template;
+
+    /**
+     * @var string
+     */
+    public $resource;
+
+    /**
+     * @var string
+     */
+    public $alias;
+    /**
+     * @var string
+     */
     public $description;
 
     /**
-     * @var array
+     * @var array | null
      */
     public $tags;
 
@@ -46,29 +84,16 @@ final class Operation
     public $permissions;
 
     /**
-     * @var string
+     * @var array | null
      */
-    public $resource;
+    public $arguments;
+
+    
 
     /**
      * @var string
      */
     public $action;
-
-    /**
-     * @var string
-     */
-    public $controller;
-
-    /**
-     * @var array | null
-     */
-    public $route;
-
-    /**
-     * @var string | null
-     */
-    public $template;
 
     /**
      * @var array
@@ -85,17 +110,27 @@ final class Operation
      */
     public $options = [];
 
-
-    /**
-     * @var string | null
+     /**
+     * @param array $data An array of key/value parameters
+     *
+     * @throws \BadMethodCallException
      */
-    public $js;
+    public function __construct(array $data)
+    {
+        if (isset($data['value'])) {
+            $data['path'] = $data['value'];
+            unset($data['value']);
+        }
 
-    /**
-     * @var string | null
-     */
-    public $css;
-
+        foreach ($data as $key => $value) {
+            $method = 'set'.str_replace('_', '', $key);
+            if (!method_exists($this, $method)) {
+                continue;
+                //throw new \BadMethodCallException(sprintf('Unknown property "%s" on annotation "%s".', $key, get_class($this)));
+            }
+            $this->$method($value);
+        }
+    }
 
 
 
@@ -122,6 +157,166 @@ final class Operation
     /**
      * @return string
      */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param string $version
+     *
+     * @return self
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return self
+     */
+    public function setPath($path)
+    {
+        $this->path = $path.'.{_format}';
+
+        return $this;
+    }
+
+    /**
+     * @return array | null
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
+
+    /**
+     * @param array | null $methods
+     *
+     * @return self
+     */
+    public function setMethods($methods)
+    {
+        $this->methods = $methods;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * @param string $controller
+     *
+     * @return self
+     */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+
+        return $this;
+    }
+
+    /**
+     * @return array | null
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param array | null $route
+     *
+     * @return self
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string $template
+     *
+     * @return self
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * @param string $resource
+     *
+     * @return self
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return self
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
@@ -140,7 +335,7 @@ final class Operation
     }
 
     /**
-     * @return array
+     * @return array | null
      */
     public function getTags()
     {
@@ -148,11 +343,11 @@ final class Operation
     }
 
     /**
-     * @param array $tags
+     * @param array | null $tags
      *
      * @return self
      */
-    public function setTags(array $tags)
+    public function setTags($tags)
     {
         $this->tags = $tags;
 
@@ -260,21 +455,21 @@ final class Operation
     }
 
     /**
-     * @return string
+     * @return array | null
      */
-    public function getResource()
+    public function getArguments()
     {
-        return $this->resource;
+        return $this->arguments;
     }
 
     /**
-     * @param string $resource
+     * @param array | null $arguments
      *
      * @return self
      */
-    public function setResource($resource)
+    public function setArguments($arguments)
     {
-        $this->resource = $resource;
+        $this->arguments = $arguments;
 
         return $this;
     }
@@ -295,66 +490,6 @@ final class Operation
     public function setAction($action)
     {
         $this->action = $action;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getController()
-    {
-        return $this->controller;
-    }
-
-    /**
-     * @param string $controller
-     *
-     * @return self
-     */
-    public function setController($controller)
-    {
-        $this->controller = $controller;
-
-        return $this;
-    }
-
-    /**
-     * @return array | null
-     */
-    public function getRoute()
-    {
-        return $this->route;
-    }
-
-    /**
-     * @param array | null $route
-     *
-     * @return self
-     */
-    public function setRoute($route)
-    {
-        $this->route = $route;
-
-        return $this;
-    }
-
-    /**
-     * @return string | null
-     */
-    public function getTemplate()
-    {
-        return $this->template;
-    }
-
-    /**
-     * @param string | null $template
-     *
-     * @return self
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
 
         return $this;
     }
@@ -415,46 +550,6 @@ final class Operation
     public function setOptions(array $options)
     {
         $this->options = $options;
-
-        return $this;
-    }
-
-    /**
-     * @return string | null
-     */
-    public function getJs()
-    {
-        return $this->js;
-    }
-
-    /**
-     * @param string | null $js
-     *
-     * @return self
-     */
-    public function setJs($js)
-    {
-        $this->js = $js;
-
-        return $this;
-    }
-
-    /**
-     * @return string | null
-     */
-    public function getCss()
-    {
-        return $this->css;
-    }
-
-    /**
-     * @param string | null $css
-     *
-     * @return self
-     */
-    public function setCss($css)
-    {
-        $this->css = $css;
 
         return $this;
     }

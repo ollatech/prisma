@@ -11,7 +11,44 @@ final class Operation {
     /**
      * @var string
      */
-	public $id;
+    public $version;
+
+    /**
+     * @var string
+     */
+    public $path;
+
+    /**
+     * @var array
+     */
+    public $methods = [];
+
+    /**
+     * @var string
+     */
+    public $controller;
+
+    /**
+     * @var array
+     */
+    public $route = [];
+
+    /**
+     * @var string
+     */
+    public $template;
+
+    /**
+     * @var string
+     */
+    public $resource;
+
+
+
+    /**
+     * @var string
+     */
+    public $id;
 
     /**
      * @var string
@@ -42,20 +79,10 @@ final class Operation {
      */
     public $action;
 
-    /**
-     * @var string
-     */
-    public $controller;
-
-    /**
-     * @var string
-     */
-    public $template;
     
-    /**
-     * @var array
-     */
-    public $route = [];
+
+    
+
     /**
      * @var array
      */
@@ -64,21 +91,8 @@ final class Operation {
      * @var array
      */
     public $react = [];
-
     /**
      * @var array
      */
     public $options = [];
-
-    //deprecated
-    
-    /**
-     * @var string
-     */
-    public $js;
-
-    /**
-     * @var string
-     */
-    public $css;
 }

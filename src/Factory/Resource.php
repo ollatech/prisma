@@ -5,14 +5,9 @@ use Olla\Prisma\Values\Resource as ResourceValue;
 use Olla\Prisma\Values\Property as PropertyValue;
 
 final class Resource implements FactoryInterface  {
+	
 	public function create(array $annt = [], array $opts = []):ResourceValue {
-		$rs = new ResourceValue();
-		$rs->setId($annt['id']);
-		$rs->setDescription($annt['description']);
-		$rs->setAlias($annt['alias']);
-		$rs->setClass($annt['class']);
-		$rs->setAccess($annt['access']);
-		$rs->setTranslateable($annt['translateable']);
+		$rs = new ResourceValue($annt);
 		$rs->setProperties($this->properties($annt['properties']));
 		return $rs;
 	}	

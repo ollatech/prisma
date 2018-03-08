@@ -5,7 +5,7 @@
   
   <services>
    <!--discover -->
-   <service id="Olla\Prisma\Discover\Admin" class="Olla\Prisma\Discover\Admin" >
+   <service id="olla.admin_discover" class="Olla\Prisma\Discover\Admin" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
@@ -13,14 +13,14 @@
       <argument>%olla.admin_module_dirs%</argument>
 
    </service>
-   <service id="Olla\Prisma\Discover\Frontend" class="Olla\Prisma\Discover\Frontend" >
+   <service id="olla.frontend_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.frontend_default_dirs%</argument>
       <argument>%olla.frontend_module_dirs%</argument>
    </service>
-   <service id="Olla\Prisma\Discover\Operation" class="Olla\Prisma\Discover\Operation" >
+   <service id="olla.api_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
@@ -49,19 +49,19 @@
   <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation" />
 
   <service id="Olla\Prisma\Builder\OperationBuilder" class="Olla\Prisma\Builder\OperationBuilder" >
-    <argument type="service" id="Olla\Prisma\Discover\Operation" />
+    <argument type="service" id="olla.api_discover" />
     <argument type="service" id="Olla\Prisma\Discover\Resource" />
     <argument type="service" id="Olla\Prisma\Factory\Operation" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
   <service id="Olla\Prisma\Builder\AdminBuilder" class="Olla\Prisma\Builder\AdminBuilder" >
-    <argument type="service" id="Olla\Prisma\Discover\Admin" />
+    <argument type="service" id="olla.admin_discover" />
     <argument type="service" id="Olla\Prisma\Discover\Resource" />
     <argument type="service" id="Olla\Prisma\Factory\Operation" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
   <service id="Olla\Prisma\Builder\FrontendBuilder" class="Olla\Prisma\Builder\FrontendBuilder" >
-    <argument type="service" id="Olla\Prisma\Discover\Frontend" />
+    <argument type="service" id="olla.frontend_discover" />
     <argument type="service" id="Olla\Prisma\Discover\Resource" />
     <argument type="service" id="Olla\Prisma\Factory\Operation" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />

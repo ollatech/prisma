@@ -30,8 +30,8 @@ final class PathCompilerPass implements CompilerPassInterface
             $this->classAutoload($classes);
         }
 
-        if($container->hasDefinition('Olla\Prisma\Discover\Operation')) {
-            $discover = $container->findDefinition('Olla\Prisma\Discover\Operation');
+        if($container->hasDefinition('olla.api_discover')) {
+            $discover = $container->findDefinition('olla.api_discover');
             $appdir = array_merge([ 9999 => $actionDir.'/Api/'], $container->getParameter('prisma_operation_paths'));
             $discover->addMethodCall(
                 'addPath', [$appdir]
@@ -49,8 +49,8 @@ final class PathCompilerPass implements CompilerPassInterface
             }
         }
 
-        if($container->hasDefinition('Olla\Prisma\Discover\Admin')) {
-            $discover = $container->findDefinition('Olla\Prisma\Discover\Admin');
+        if($container->hasDefinition('olla.admin_discover')) {
+            $discover = $container->findDefinition('olla.admin_discover');
             $appdir = array_merge([ 9999 => $actionDir.'/Admin/'], $container->getParameter('prisma_admin_paths'));
             $discover->addMethodCall(
                 'addPath', [$appdir]
@@ -68,8 +68,8 @@ final class PathCompilerPass implements CompilerPassInterface
             }
         }
 
-        if($container->hasDefinition('Olla\Prisma\Discover\Frontend')) {
-            $discover = $container->findDefinition('Olla\Prisma\Discover\Frontend');
+        if($container->hasDefinition('olla.frontend_discover')) {
+            $discover = $container->findDefinition('olla.frontend_discover');
             $appdir = array_merge([ 9999 => $actionDir.'/Frontend/'], $container->getParameter('prisma_frontend_paths'));
             $discover->addMethodCall(
                 'addPath', [$appdir]

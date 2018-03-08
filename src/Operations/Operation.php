@@ -1,6 +1,6 @@
 <?php
 
-namespace Olla\Prisma\Operation\Frontend;
+namespace Olla\Prisma\Operation;
 
 use Olla\Prisma\Annotation\Operation;
 
@@ -8,11 +8,10 @@ use Olla\Prisma\Annotation\Operation;
  * @Operation(
  * 	   id ="welcome",
  *     path ="/",
- * 	   methods = "GET",
- * 	   template = "frontend/welcome.html.twig"
+ * 	   methods = "GET"
  * )
  */
-class Welcome
+class Operation
 {
     public function __invoke() {
     	return [];

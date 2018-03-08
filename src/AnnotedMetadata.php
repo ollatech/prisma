@@ -9,7 +9,7 @@ use Olla\Prisma\Builder\AdminBuilder;
 use Olla\Prisma\Builder\OperationBuilder;
 use Olla\Prisma\Builder\ResourceBuilder;
 
-final class AnnotedMetadata implements Metadata
+final class AnnotedMetadata implements Metadata, MetadataInterface
 {
     private $resource;
     private $operation;

@@ -30,6 +30,11 @@ final class Operation
     public $controller;
 
     /**
+     * @var string
+     */
+    public $executor;
+
+    /**
      * @var array | null
      */
     public $route = [];
@@ -227,6 +232,25 @@ final class Operation
     public function setController($controller)
     {
         $this->controller = $controller;
+
+        return $this;
+    }
+     /**
+     * @return string
+     */
+    public function getExecutor()
+    {
+        return $this->executor;
+    }
+
+    /**
+     * @param string $controller
+     *
+     * @return self
+     */
+    public function setExecutor($executor)
+    {
+        $this->executor = $executor;
 
         return $this;
     }

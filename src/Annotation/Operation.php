@@ -29,6 +29,12 @@ final class Operation {
     public $controller;
 
     /**
+     * @var string
+     */
+    public $executor;
+
+
+    /**
      * @var array
      */
     public $route = [];

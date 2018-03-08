@@ -54,6 +54,9 @@ final class Operation extends Discover implements DiscoverInterface
         if(!isset($data['controller'])) {
             $data['controller'] = $className;
         }
+        if(!isset($data['executor'])) {
+            $data['executor'] = $className;
+        }
         return $data;
     }
 }

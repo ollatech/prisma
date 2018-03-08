@@ -6,7 +6,7 @@ use Olla\Prisma\Resource;
 use Olla\Prisma\Operation;
 use Olla\Prisma\Builder\FrontendBuilder;
 use Olla\Prisma\Builder\AdminBuilder;
-use Olla\Prisma\Builder\OperationBuilder;
+use Olla\Prisma\Builder\ApiBuilder;
 use Olla\Prisma\Builder\ResourceBuilder;
 use Olla\Prisma\Builder\ToolBuilder;
 
@@ -20,7 +20,7 @@ final class AnnotedMetadata implements Metadata, MetadataInterface
     
     public function __construct(
         ResourceBuilder $resource,
-        OperationBuilder $operation,
+        ApiBuilder $operation,
         AdminBuilder $admin,
         FrontendBuilder $frontend,
         ToolBuilder $tool

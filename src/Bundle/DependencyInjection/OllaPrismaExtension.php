@@ -43,25 +43,10 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         $container->setParameter('prisma_cache_dir', $config['cache_dir']);
-        $container->setParameter('prisma_resource_paths', $config['mapping']['resource_paths']);
-        $container->setParameter('prisma_operation_paths', $config['mapping']['operation_paths']);
-        $container->setParameter('prisma_admin_paths', $config['mapping']['admin_paths']);
-        $container->setParameter('prisma_frontend_paths', $config['mapping']['frontend_paths']);
-        $container->setParameter('prisma_tool_paths', $config['mapping']['tool_paths']);
+  
+        $container->setParameter('olla.operations', $config['operations']);
 
-        $container->setParameter('prisma_collection_operation', $config['operation']['collection']);
-        $container->setParameter('prisma_item_operation', $config['operation']['item']);
-        $container->setParameter('prisma_create_operation', $config['operation']['create']);
-        $container->setParameter('prisma_update_operation', $config['operation']['update']);
-        $container->setParameter('prisma_delete_operation', $config['operation']['delete']);
-
-        $container->setParameter('prisma_collection_admin', $config['admin']['collection']);
-        $container->setParameter('prisma_item_admin', $config['admin']['item']);
-        $container->setParameter('prisma_item_form_admin', $config['admin']['item_form']);
-        $container->setParameter('prisma_create_admin', $config['admin']['create']);
-        $container->setParameter('prisma_update_admin', $config['admin']['update']);
-        $container->setParameter('prisma_delete_admin', $config['admin']['delete']);
-
+  
 
 
         //dirs

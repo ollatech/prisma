@@ -7,7 +7,7 @@ use Olla\Prisma\Discover\DiscoverInterface;
 use Olla\Prisma\Factory\FactoryInterface;
 use Doctrine\Common\Inflector\Inflector;
 
-final class OperationBuilder
+final class ApiBuilder
 {
     private $operationDiscover;
     private $resourceDiscover;

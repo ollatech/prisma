@@ -18,10 +18,6 @@ final class PathCompilerPass implements CompilerPassInterface
         
         if($container->hasDefinition('olla.resource_discover')) {
             $discover = $container->findDefinition('olla.resource_discover');
-            $appdir = array_merge([ 9999 => $project_dir.'/src/Entity/'], $container->getParameter('prisma_resource_paths'));
-            $discover->addMethodCall(
-                'addPath', [$appdir]
-            );
             $discover->addMethodCall(
                 'classes', ['resource', $cache_dir]
             );
@@ -32,10 +28,6 @@ final class PathCompilerPass implements CompilerPassInterface
 
         if($container->hasDefinition('olla.api_discover')) {
             $discover = $container->findDefinition('olla.api_discover');
-            $appdir = array_merge([ 9999 => $actionDir.'/Api/'], $container->getParameter('prisma_operation_paths'));
-            $discover->addMethodCall(
-                'addPath', [$appdir]
-            );
             $discover->addMethodCall(
                 'classes', ['operation', $cache_dir]
             );
@@ -43,18 +35,12 @@ final class PathCompilerPass implements CompilerPassInterface
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
             $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
-                $definition = $container->setDefinition($class, new Definition($class));
-                $definition->setPublic(true);
-                $definition->addTag('olla.operation', ['generated' => true]);
+                $this->addOperationService($container, $class);
             }
         }
 
         if($container->hasDefinition('olla.admin_discover')) {
             $discover = $container->findDefinition('olla.admin_discover');
-            $appdir = array_merge([ 9999 => $actionDir.'/Admin/'], $container->getParameter('prisma_admin_paths'));
-            $discover->addMethodCall(
-                'addPath', [$appdir]
-            );
             $discover->addMethodCall(
                 'classes', ['admin', $cache_dir]
             );
@@ -62,18 +48,12 @@ final class PathCompilerPass implements CompilerPassInterface
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
             $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
-                $definition = $container->setDefinition($class, new Definition($class));
-                $definition->setPublic(true);
-                $definition->addTag('olla.operation', ['generated' => true]);
+                $this->addOperationService($container, $class);
             }
         }
 
         if($container->hasDefinition('olla.frontend_discover')) {
             $discover = $container->findDefinition('olla.frontend_discover');
-            $appdir = array_merge([ 9999 => $actionDir.'/Frontend/'], $container->getParameter('prisma_frontend_paths'));
-            $discover->addMethodCall(
-                'addPath', [$appdir]
-            );
             $discover->addMethodCall(
                 'classes', ['frontend', $cache_dir]
             );
@@ -81,18 +61,12 @@ final class PathCompilerPass implements CompilerPassInterface
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
             $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
-                $definition = $container->setDefinition($class, new Definition($class));
-                $definition->setPublic(true);
-                $definition->addTag('olla.operation', ['generated' => true]);
+                $this->addOperationService($container, $class);
             }
         }
 
         if($container->hasDefinition('olla.tool_discover')) {
             $discover = $container->findDefinition('olla.tool_discover');
-            $appdir = array_merge([ 9999 => $actionDir.'/Tool/'], $container->getParameter('prisma_tool_paths'));
-            $discover->addMethodCall(
-                'addPath', [$appdir]
-            );
             $discover->addMethodCall(
                 'classes', ['tool', $cache_dir]
             );
@@ -100,74 +74,16 @@ final class PathCompilerPass implements CompilerPassInterface
             $classes = file_exists($classMapFile) ? require $classMapFile : [];
             $this->classAutoload($classes);
             foreach ($classes as $class => $file) {
-                $definition = $container->setDefinition($class, new Definition($class));
-                $definition->setPublic(true);
-                $definition->addTag('olla.operation', ['generated' => true]);
+                $this->addOperationService($container, $class);
             }
         }
+    }
 
-
-        //default controller
-        if($container->hasDefinition('Olla\Prisma\Builder\ResourceOperation')) {
-            $operation = $container->findDefinition('Olla\Prisma\Builder\ResourceOperation');
-            $operation->addMethodCall(
-                'addSetting', ['collection_operation', $container->getParameter('prisma_collection_operation')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['item_operation', $container->getParameter('prisma_item_operation')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['create_operation', $container->getParameter('prisma_create_operation')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['update_operation', $container->getParameter('prisma_update_operation')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['delete_operation', $container->getParameter('prisma_delete_operation')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['collection_admin', $container->getParameter('prisma_collection_admin')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['item_form_admin', $container->getParameter('prisma_item_form_admin')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['item_admin', $container->getParameter('prisma_item_admin')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['create_admin', $container->getParameter('prisma_create_admin')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['update_admin', $container->getParameter('prisma_update_admin')]
-            );
-            $operation->addMethodCall(
-                'addSetting', ['delete_admin', $container->getParameter('prisma_delete_admin')]
-            );
-        }
-
-        if($container->hasDefinition('Olla\Prisma\Route\AdminRoute')) {
-            $operation = $container->findDefinition('Olla\Prisma\Route\AdminRoute');
-            $operation->addMethodCall(
-                'addController', [$container->getParameter('prisma_admin_entrypoint')]
-            );
-        }
-        if($container->hasDefinition('Olla\Prisma\Route\ApiRoute')) {
-            $operation = $container->findDefinition('Olla\Prisma\Route\ApiRoute');
-            $operation->addMethodCall(
-                'addController', [$container->getParameter('prisma_api_entrypoint')]
-            );
-        }
-        if($container->hasDefinition('Olla\Prisma\Route\FrontendRoute')) {
-            $operation = $container->findDefinition('Olla\Prisma\Route\FrontendRoute');
-            $operation->addMethodCall(
-                'addController', [$container->getParameter('prisma_frontend_entrypoint')]
-            );
-        }
-        if($container->hasDefinition('Olla\Prisma\Route\GraphqlRoute')) {
-            $operation = $container->findDefinition('Olla\Prisma\Route\GraphqlRoute');
-            $operation->addMethodCall(
-                'addController', [$container->getParameter('prisma_graphql_entrypoint')]
-            );
+    protected function addOperationService(ContainerBuilder $container, $class) {
+        if(!$container->hasDefinition($class)) {
+            $definition = $container->setDefinition($class, new Definition($class));
+            $definition->setPublic(true);
+            $definition->addTag('olla.operation', ['generated' => true]);
         }
     }
 

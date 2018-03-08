@@ -7,7 +7,7 @@ use Composer\Autoload\ClassLoader;
 
 final class Operation extends Discover implements DiscoverInterface
 {
-     protected $reader;
+    protected $reader;
     protected $serializer;
     protected $propertyInfo;
     protected $paths;

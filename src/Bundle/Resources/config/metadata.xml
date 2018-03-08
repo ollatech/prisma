@@ -56,9 +56,11 @@
     <argument type="service" id="olla.resource_factory" />
   </service>
   
-  <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation" />
+  <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation">
+    <argument>%olla.operations%</argument>
+  </service>
 
-  <service id="olla.api_meta_builder" class="Olla\Prisma\Builder\OperationBuilder" >
+  <service id="olla.api_meta_builder" class="Olla\Prisma\Builder\ApiBuilder" >
     <argument type="service" id="olla.api_discover" />
     <argument type="service" id="olla.resource_discover" />
     <argument type="service" id="olla.operation_factory" />

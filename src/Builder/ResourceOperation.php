@@ -6,12 +6,14 @@ use Doctrine\Common\Inflector\Inflector;
 
 final class ResourceOperation {
 
-	protected $settings;
-	public function addSetting($setting, $value) {
-		$this->settings[$setting] = $value;
-		return $this;
-	}
 
+	protected $operations;
+	public function __construct(array $operations) {
+        $this->operations = $operations;
+    }
+
+
+	
 	public function createApi($resource, array $data = []) {
 		$maps = [];
 		foreach ($resource['operations'] as $action => $op) {
@@ -24,8 +26,8 @@ final class ResourceOperation {
 			$operation['methods'] = $this->methods($action, $resourceAlias);
 			$operation['action'] = $action;
 			$operation['resource'] = $resourceClass;
-			$operation['controller'] = $this->settings[$action.'_operation'];
-
+			$operation['controller'] = $this->operations['api'][$action];
+			$operation['executor'] = $this->operations['api'][$action];
 			$maps[$id] = $operation;
 		}
 		return $maps;
@@ -42,7 +44,8 @@ final class ResourceOperation {
 			$operation['methods'] = $this->methods($action, $resourceAlias);
 			$operation['action'] = $action;
 			$operation['resource'] = $resourceClass;
-			$operation['controller'] = $this->settings[$action.'_admin'];
+			$operation['controller'] = $this->operations['admin'][$action];
+			$operation['executor'] = $this->operations['admin'][$action];
 			$maps[$id] = $operation;
 		}
 		return $maps;

@@ -9,7 +9,7 @@ use Symfony\Component\PropertyInfo\Type;
 final class Resource extends Discover implements DiscoverInterface
 {
     public function classes($name, $cache_dir) {
-        $discovers = $this->scanDir($this->paths, ['php']);
+        $discovers = $this->scanDir($this->app_dir, ['php']);
         $classMap = [];
         $resources = [];
         foreach ($discovers as $className => $classFile) {
@@ -23,7 +23,7 @@ final class Resource extends Discover implements DiscoverInterface
     }
 
     public function collections() {
-        $discovers = $this->scanDir($this->paths, ['php']);
+        $discovers = $this->scanDir($this->app_dir, ['php']);
         $classMap = [];
         $resources = [];
         foreach ($discovers as $className => $classFile) {

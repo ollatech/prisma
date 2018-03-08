@@ -47,6 +47,7 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $container->setParameter('prisma_operation_paths', $config['mapping']['operation_paths']);
         $container->setParameter('prisma_admin_paths', $config['mapping']['admin_paths']);
         $container->setParameter('prisma_frontend_paths', $config['mapping']['frontend_paths']);
+        $container->setParameter('prisma_tool_paths', $config['mapping']['tool_paths']);
 
         $container->setParameter('prisma_collection_operation', $config['operation']['collection']);
         $container->setParameter('prisma_item_operation', $config['operation']['item']);
@@ -61,28 +62,48 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $container->setParameter('prisma_update_admin', $config['admin']['update']);
         $container->setParameter('prisma_delete_admin', $config['admin']['delete']);
 
-        $container->setParameter('prisma_api_entrypoint', $config['entrypoint']['api']);
-        $container->setParameter('prisma_admin_entrypoint', $config['entrypoint']['admin']);
-        $container->setParameter('prisma_frontend_entrypoint', $config['entrypoint']['frontend']);
-        $container->setParameter('prisma_graphql_entrypoint', $config['entrypoint']['graphql']);
+
 
         //dirs
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
+        $projectDir = $container->getParameter('kernel.project_dir');
         $api_default_dirs = [
             'olla' => $baseDir.'/Operations/Api'
-        ];;
+        ];
         $api_module_dirs = [];
+        $api_app_dirs = [
+            'olla' => $projectDir.'/Operations/Api'
+        ];
         $admin_default_dirs = [
             'olla' => $baseDir.'/Operations/Admin'
-        ];;
+        ];
         $admin_module_dirs = [];
+        $admin_app_dirs = [
+            'olla' => $projectDir.'/Operations/Admin'
+        ];
         $frontend_default_dirs = [
             'olla' => $baseDir.'/Operations/Frontend'
         ];
         $frontend_module_dirs = [];
-        $resource_default_dirs = [];
+        $frontend_app_dirs = [
+            'olla' => $projectDir.'/Operations/Frontend'
+        ];
+        $tool_default_dirs = [
+            'olla' => $baseDir.'/Operations/Tool'
+        ];
+        $tool_module_dirs = [];
+        $tool_app_dirs = [
+            'olla' => $projectDir.'/Operations/Tool'
+        ];
+        $resource_default_dirs = [
+            'olla' => $baseDir.'/Resource'
+        ];
         $resource_module_dirs = [];
+        $resource_app_dirs = [
+            'olla' => $projectDir.'/src/Resource',
+            'orm' => $projectDir.'/src/Entity'
+        ];
      
         if(isset($config['dirs'])) {
             $dirs = $config['dirs'];
@@ -92,11 +113,17 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
             if(isset($dirs['api_module'])) {
                 $api_module_dirs = $dirs['api_module'];
             }
+            if(isset($dirs['api_app'])) {
+                $api_app_dirs = array_merge($api_app_dirs, $dirs['api_app']);
+            }
             if(isset($dirs['admin_default'])) {
                 $admin_default_dirs = $dirs['admin_default'];
             }
             if(isset($dirs['admin_module'])) {
                 $admin_module_dirs = $dirs['admin_module'];
+            }
+            if(isset($dirs['admin_app'])) {
+                $admin_app_dirs = array_merge($admin_app_dirs, $dirs['admin_app']);
             }
             if(isset($dirs['frontend_default'])) {
                 $frontend_default_dirs = $dirs['frontend_default'];
@@ -104,20 +131,42 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
             if(isset($dirs['frontend_module'])) {
                 $frontend_module_dirs = $dirs['frontend_module'];
             }
+            if(isset($dirs['frontend_app'])) {
+                $frontend_app_dirs = array_merge($frontend_app_dirs, $dirs['frontend_app']);
+            }
+            if(isset($dirs['tool_default'])) {
+                $tool_default_dirs = $dirs['tool_default'];
+            }
+            if(isset($dirs['tool_module'])) {
+                $tool_module_dirs = $dirs['tool_module'];
+            }
+            if(isset($dirs['tool_app'])) {
+                $tool_app_dirs = array_merge($tool_app_dirs, $dirs['tool_app']);
+            }
             if(isset($dirs['resource_default'])) {
                 $api_default_dirs = $dirs['resource_default'];
             }
             if(isset($dirs['resource_module'])) {
                 $resource_module_dirs = $dirs['resource_module'];
             }
+            if(isset($dirs['resource_app'])) {
+                $resource_app_dirs = array_merge($resource_app_dirs, $dirs['resource_app']);
+            }
         }
         $container->setParameter('olla.api_default_dirs', $api_default_dirs);
         $container->setParameter('olla.api_module_dirs', $api_module_dirs);
+        $container->setParameter('olla.api_app_dirs', $api_app_dirs);
         $container->setParameter('olla.admin_default_dirs', $admin_default_dirs);
         $container->setParameter('olla.admin_module_dirs', $admin_module_dirs);
+        $container->setParameter('olla.admin_app_dirs', $admin_app_dirs);
         $container->setParameter('olla.frontend_default_dirs', $frontend_default_dirs);
         $container->setParameter('olla.frontend_module_dirs', $frontend_module_dirs);
+        $container->setParameter('olla.frontend_app_dirs', $frontend_app_dirs);
+        $container->setParameter('olla.tool_default_dirs', $tool_default_dirs);
+        $container->setParameter('olla.tool_module_dirs', $tool_module_dirs);
+        $container->setParameter('olla.tool_app_dirs', $tool_app_dirs);
         $container->setParameter('olla.resource_default_dirs', $resource_default_dirs);
         $container->setParameter('olla.resource_module_dirs', $resource_module_dirs);
+        $container->setParameter('olla.resource_app_dirs', $resource_app_dirs);
     }
 }

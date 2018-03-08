@@ -56,7 +56,7 @@ abstract class Discover
 
     public function appOperations() {
         $resources = [];
-        $discovers = $this->scanDir($this->paths, ['php']);
+        $discovers = $this->scanDir($this->app_dir, ['php']);
         foreach ($discovers as $className => $classFile) {
             if(null !== $annotation = $this->getOperation($className)) {
                 $resources[$annotation['url']] = array_merge($annotation, ['path' => $classFile]);
@@ -130,7 +130,8 @@ abstract class Discover
         foreach ($directories as $path) {
             $dir = dirname($path);
             if (!is_dir($path)) {
-                mkdir($path, 0775, true);
+                continue;
+                //mkdir($path, 0775, true);
             }
             $iterator = new \RegexIterator(
                 new \RecursiveIteratorIterator(

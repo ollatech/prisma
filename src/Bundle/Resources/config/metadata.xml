@@ -10,69 +10,89 @@
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.admin_default_dirs%</argument>
-    <argument>%olla.admin_module_dirs%</argument>
-
+     <argument>%olla.admin_module_dirs%</argument>
+     <argument>%olla.admin_app_dirs%</argument>
    </service>
    <service id="olla.frontend_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.frontend_default_dirs%</argument>
-      <argument>%olla.frontend_module_dirs%</argument>
+     <argument>%olla.frontend_module_dirs%</argument>
+     <argument>%olla.frontend_app_dirs%</argument>
    </service>
    <service id="olla.api_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.api_default_dirs%</argument>
-      <argument>%olla.api_module_dirs%</argument>
+     <argument>%olla.api_module_dirs%</argument>
+     <argument>%olla.api_app_dirs%</argument>
    </service>
-   <service id="Olla\Prisma\Discover\Resource" class="Olla\Prisma\Discover\Resource" >
+   <service id="olla.tool_discover" class="Olla\Prisma\Discover\Operation" >
+     <argument type="service" id="annotation_reader" />
+     <argument type="service" id="serializer" />
+     <argument type="service" id="property_info" />
+     <argument>%olla.tool_default_dirs%</argument>
+     <argument>%olla.tool_module_dirs%</argument>
+     <argument>%olla.tool_app_dirs%</argument>
+   </service>
+   <service id="olla.resource_discover" class="Olla\Prisma\Discover\Resource" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
      <argument type="service" id="property_info" />
      <argument>%olla.resource_default_dirs%</argument>
-      <argument>%olla.resource_module_dirs%</argument>
+     <argument>%olla.resource_module_dirs%</argument>
+     <argument>%olla.resource_app_dirs%</argument>
    </service>
    
-
    <!--Factory-->
-   <service id="Olla\Prisma\Factory\Operation" class="Olla\Prisma\Factory\Operation" />
-   <service id="Olla\Prisma\Factory\Resource" class="Olla\Prisma\Factory\Resource" />
+   <service id="olla.operation_factory" class="Olla\Prisma\Factory\Operation" />
+   <service id="olla.resource_factory" class="Olla\Prisma\Factory\Resource" />
    
 
-   <service id="Olla\Prisma\Builder\ResourceBuilder" class="Olla\Prisma\Builder\ResourceBuilder" >
-    <argument type="service" id="Olla\Prisma\Discover\Resource" />
-    <argument type="service" id="Olla\Prisma\Factory\Resource" />
+   <service id="olla.resource_meta_builder" class="Olla\Prisma\Builder\ResourceBuilder" >
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.resource_factory" />
   </service>
   
   <service id="Olla\Prisma\Builder\ResourceOperation" class="Olla\Prisma\Builder\ResourceOperation" />
 
-  <service id="Olla\Prisma\Builder\OperationBuilder" class="Olla\Prisma\Builder\OperationBuilder" >
+  <service id="olla.api_meta_builder" class="Olla\Prisma\Builder\OperationBuilder" >
     <argument type="service" id="olla.api_discover" />
-    <argument type="service" id="Olla\Prisma\Discover\Resource" />
-    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
-  <service id="Olla\Prisma\Builder\AdminBuilder" class="Olla\Prisma\Builder\AdminBuilder" >
+
+  <service id="olla.admin_meta_builder" class="Olla\Prisma\Builder\AdminBuilder" >
     <argument type="service" id="olla.admin_discover" />
-    <argument type="service" id="Olla\Prisma\Discover\Resource" />
-    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
-  <service id="Olla\Prisma\Builder\FrontendBuilder" class="Olla\Prisma\Builder\FrontendBuilder" >
+
+  <service id="olla.frontend_meta_builder" class="Olla\Prisma\Builder\FrontendBuilder" >
     <argument type="service" id="olla.frontend_discover" />
-    <argument type="service" id="Olla\Prisma\Discover\Resource" />
-    <argument type="service" id="Olla\Prisma\Factory\Operation" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+
+  <service id="olla.tool_meta_builder" class="Olla\Prisma\Builder\ToolBuilder" >
+    <argument type="service" id="olla.tool_discover" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
   
 
   <service id="olla.metadata" class="Olla\Prisma\AnnotedMetadata" >
-    <argument type="service" id="Olla\Prisma\Builder\ResourceBuilder" />
-    <argument type="service" id="Olla\Prisma\Builder\OperationBuilder" />
-    <argument type="service" id="Olla\Prisma\Builder\AdminBuilder" />
-    <argument type="service" id="Olla\Prisma\Builder\FrontendBuilder" />
+    <argument type="service" id="olla.resource_meta_builder" />
+    <argument type="service" id="olla.api_meta_builder" />
+    <argument type="service" id="olla.admin_meta_builder" />
+    <argument type="service" id="olla.frontend_meta_builder" />
+    <argument type="service" id="olla.tool_meta_builder" />
   </service>
   
 </services>

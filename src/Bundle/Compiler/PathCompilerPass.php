@@ -16,8 +16,8 @@ final class PathCompilerPass implements CompilerPassInterface
         $actionDir = $project_dir.'/src/Actions';
 
         
-        if($container->hasDefinition('Olla\Prisma\Discover\Resource')) {
-            $discover = $container->findDefinition('Olla\Prisma\Discover\Resource');
+        if($container->hasDefinition('olla.resource_discover')) {
+            $discover = $container->findDefinition('olla.resource_discover');
             $appdir = array_merge([ 9999 => $project_dir.'/src/Entity/'], $container->getParameter('prisma_resource_paths'));
             $discover->addMethodCall(
                 'addPath', [$appdir]
@@ -64,7 +64,7 @@ final class PathCompilerPass implements CompilerPassInterface
             foreach ($classes as $class => $file) {
                 $definition = $container->setDefinition($class, new Definition($class));
                 $definition->setPublic(true);
-                $definition->addTag('olla.admin', ['generated' => true]);
+                $definition->addTag('olla.operation', ['generated' => true]);
             }
         }
 
@@ -83,9 +83,29 @@ final class PathCompilerPass implements CompilerPassInterface
             foreach ($classes as $class => $file) {
                 $definition = $container->setDefinition($class, new Definition($class));
                 $definition->setPublic(true);
-                $definition->addTag('olla.frontend', ['generated' => true]);
+                $definition->addTag('olla.operation', ['generated' => true]);
             }
         }
+
+        if($container->hasDefinition('olla.tool_discover')) {
+            $discover = $container->findDefinition('olla.tool_discover');
+            $appdir = array_merge([ 9999 => $actionDir.'/Tool/'], $container->getParameter('prisma_tool_paths'));
+            $discover->addMethodCall(
+                'addPath', [$appdir]
+            );
+            $discover->addMethodCall(
+                'classes', ['tool', $cache_dir]
+            );
+            $classMapFile = $cache_dir.'/tool.map';
+            $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
+            foreach ($classes as $class => $file) {
+                $definition = $container->setDefinition($class, new Definition($class));
+                $definition->setPublic(true);
+                $definition->addTag('olla.operation', ['generated' => true]);
+            }
+        }
+
 
         //default controller
         if($container->hasDefinition('Olla\Prisma\Builder\ResourceOperation')) {

@@ -5,6 +5,7 @@ namespace Olla\Prisma\Bundle\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\Filesystem\Filesystem;
 use Composer\Autoload\ClassLoader;
 
 final class PathCompilerPass implements CompilerPassInterface
@@ -13,6 +14,8 @@ final class PathCompilerPass implements CompilerPassInterface
     {
         $project_dir = $container->getParameter('kernel.project_dir');
         $cache_dir = $project_dir.'/var/prisma';
+        $fileSystem = new Filesystem();
+        //$fileSystem->remove(array($cache_dir));
         $actionDir = $project_dir.'/src/Actions';
 
         

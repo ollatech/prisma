@@ -84,7 +84,7 @@ final class PathCompilerPass implements CompilerPassInterface
             $definition = $container->setDefinition($class, new Definition($class));
             $definition->setPublic(true);
             $definition->addTag('olla.operation', ['generated' => true]);
-        }
+       }
     }
 
     protected function classAutoload(array $classMap = [])

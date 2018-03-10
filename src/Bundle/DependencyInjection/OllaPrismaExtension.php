@@ -58,28 +58,28 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         ];
         $api_module_dirs = [];
         $api_app_dirs = [
-            'olla' => $projectDir.'/Operations/Api'
+            'olla' => $projectDir.'/src/Operations/Api'
         ];
         $admin_default_dirs = [
             'olla' => $baseDir.'/Operations/Admin'
         ];
         $admin_module_dirs = [];
         $admin_app_dirs = [
-            'olla' => $projectDir.'/Operations/Admin'
+            'olla' => $projectDir.'/src/Operations/Admin'
         ];
         $frontend_default_dirs = [
             'olla' => $baseDir.'/Operations/Frontend'
         ];
         $frontend_module_dirs = [];
         $frontend_app_dirs = [
-            'olla' => $projectDir.'/Operations/Frontend'
+            'olla' => $projectDir.'/src/Operations/Frontend'
         ];
         $tool_default_dirs = [
             'olla' => $baseDir.'/Operations/Tool'
         ];
         $tool_module_dirs = [];
         $tool_app_dirs = [
-            'olla' => $projectDir.'/Operations/Tool'
+            'olla' => $projectDir.'/src/Operations/Tool'
         ];
         $resource_default_dirs = [
             'olla' => $baseDir.'/Resource'

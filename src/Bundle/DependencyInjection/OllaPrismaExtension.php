@@ -46,9 +46,6 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
   
         $container->setParameter('olla.operations', $config['operations']);
 
-  
-
-
         //dirs
         $vendorDir = dirname(dirname(__FILE__));
         $baseDir = dirname($vendorDir);
@@ -74,6 +71,23 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $frontend_app_dirs = [
             'olla' => $projectDir.'/src/Operations/Frontend'
         ];
+
+        $account_default_dirs = [
+            'olla' => $baseDir.'/Operations/Account'
+        ];
+        $account_module_dirs = [];
+        $account_app_dirs = [
+            'olla' => $projectDir.'/src/Operations/Account'
+        ];
+
+        $console_default_dirs = [
+            'olla' => $baseDir.'/Operations/Console'
+        ];
+        $console_module_dirs = [];
+        $console_app_dirs = [
+            'olla' => $projectDir.'/src/Operations/Console'
+        ];
+
         $tool_default_dirs = [
             'olla' => $baseDir.'/Operations/Tool'
         ];
@@ -81,6 +95,8 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $tool_app_dirs = [
             'olla' => $projectDir.'/src/Operations/Tool'
         ];
+
+
         $resource_default_dirs = [
             'olla' => $baseDir.'/Resource'
         ];
@@ -119,6 +135,28 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
             if(isset($dirs['frontend_app'])) {
                 $frontend_app_dirs = array_merge($frontend_app_dirs, $dirs['frontend_app']);
             }
+
+
+            if(isset($dirs['account_default'])) {
+                $account_default_dirs = $dirs['account_default'];
+            }
+            if(isset($dirs['account_module'])) {
+                $account_module_dirs = $dirs['account_module'];
+            }
+            if(isset($dirs['account_app'])) {
+                $account_app_dirs = array_merge($account_app_dirs, $dirs['account_app']);
+            }
+
+            if(isset($dirs['console_default'])) {
+                $console_default_dirs = $dirs['console_default'];
+            }
+            if(isset($dirs['console_module'])) {
+                $console_module_dirs = $dirs['console_module'];
+            }
+            if(isset($dirs['console_app'])) {
+                $console_app_dirs = array_merge($console_app_dirs, $dirs['console_app']);
+            }
+
             if(isset($dirs['tool_default'])) {
                 $tool_default_dirs = $dirs['tool_default'];
             }
@@ -128,6 +166,8 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
             if(isset($dirs['tool_app'])) {
                 $tool_app_dirs = array_merge($tool_app_dirs, $dirs['tool_app']);
             }
+
+
             if(isset($dirs['resource_default'])) {
                 $api_default_dirs = $dirs['resource_default'];
             }
@@ -147,9 +187,18 @@ final class OllaPrismaExtension extends Extension implements PrependExtensionInt
         $container->setParameter('olla.frontend_default_dirs', $frontend_default_dirs);
         $container->setParameter('olla.frontend_module_dirs', $frontend_module_dirs);
         $container->setParameter('olla.frontend_app_dirs', $frontend_app_dirs);
+        $container->setParameter('olla.account_default_dirs', $account_default_dirs);
+        $container->setParameter('olla.account_module_dirs', $account_module_dirs);
+        $container->setParameter('olla.account_app_dirs', $account_app_dirs);
+
+        $container->setParameter('olla.console_default_dirs', $console_default_dirs);
+        $container->setParameter('olla.console_module_dirs', $console_module_dirs);
+        $container->setParameter('olla.console_app_dirs', $console_app_dirs);
+
         $container->setParameter('olla.tool_default_dirs', $tool_default_dirs);
         $container->setParameter('olla.tool_module_dirs', $tool_module_dirs);
         $container->setParameter('olla.tool_app_dirs', $tool_app_dirs);
+
         $container->setParameter('olla.resource_default_dirs', $resource_default_dirs);
         $container->setParameter('olla.resource_module_dirs', $resource_module_dirs);
         $container->setParameter('olla.resource_app_dirs', $resource_app_dirs);

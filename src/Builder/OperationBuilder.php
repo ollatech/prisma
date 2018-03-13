@@ -7,7 +7,7 @@ use Olla\Prisma\Discover\DiscoverInterface;
 use Olla\Prisma\Factory\FactoryInterface;
 use Doctrine\Common\Inflector\Inflector;
 
-final class ToolBuilder extends OperationBuilder
+abstract class OperationBuilder
 {
     private $operationDiscover;
     private $resourceDiscover;
@@ -27,14 +27,18 @@ final class ToolBuilder extends OperationBuilder
         $this->operationFactory = $operationFactory;
         $this->resourceOperation = $resourceOperation;
     }
-   
-    
-    public function create($annotation, array $options = []) {
+
+    protected function resourceOperations() {
+        return [];
+    }
+    protected function create($annotation, array $options = []) {
         return $this->operationFactory->create($annotation, $options);
     }
     public function get() {
+        $resourceOperations = $this->resourceOperations();
+        $collections = $this->operationDiscover->collections(); 
         $maps = [];
-        foreach ($this->operationDiscover->collections() as $opId => $annotation) {
+        foreach (array_merge($collections, $resourceOperations) as $opId => $annotation) {
             if(null !== $operation = $this->create($annotation)) {
                 $maps[$opId] = $operation;
             } 

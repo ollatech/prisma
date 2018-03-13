@@ -29,6 +29,23 @@
      <argument>%olla.api_module_dirs%</argument>
      <argument>%olla.api_app_dirs%</argument>
    </service>
+   <service id="olla.account_discover" class="Olla\Prisma\Discover\Operation" >
+     <argument type="service" id="annotation_reader" />
+     <argument type="service" id="serializer" />
+     <argument type="service" id="property_info" />
+     <argument>%olla.account_default_dirs%</argument>
+     <argument>%olla.account_module_dirs%</argument>
+     <argument>%olla.account_app_dirs%</argument>
+   </service>
+   <service id="olla.console_discover" class="Olla\Prisma\Discover\Operation" >
+     <argument type="service" id="annotation_reader" />
+     <argument type="service" id="serializer" />
+     <argument type="service" id="property_info" />
+     <argument>%olla.console_default_dirs%</argument>
+     <argument>%olla.console_module_dirs%</argument>
+     <argument>%olla.console_app_dirs%</argument>
+   </service>
+
    <service id="olla.tool_discover" class="Olla\Prisma\Discover\Operation" >
      <argument type="service" id="annotation_reader" />
      <argument type="service" id="serializer" />
@@ -81,6 +98,20 @@
     <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
   </service>
 
+  <service id="olla.account_meta_builder" class="Olla\Prisma\Builder\AccountBuilder" >
+    <argument type="service" id="olla.account_discover" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+
+  <service id="olla.console_meta_builder" class="Olla\Prisma\Builder\ConsoleBuilder" >
+    <argument type="service" id="olla.console_discover" />
+    <argument type="service" id="olla.resource_discover" />
+    <argument type="service" id="olla.operation_factory" />
+    <argument type="service" id="Olla\Prisma\Builder\ResourceOperation" />
+  </service>
+
   <service id="olla.tool_meta_builder" class="Olla\Prisma\Builder\ToolBuilder" >
     <argument type="service" id="olla.tool_discover" />
     <argument type="service" id="olla.resource_discover" />
@@ -94,6 +125,8 @@
     <argument type="service" id="olla.api_meta_builder" />
     <argument type="service" id="olla.admin_meta_builder" />
     <argument type="service" id="olla.frontend_meta_builder" />
+    <argument type="service" id="olla.account_meta_builder" />
+    <argument type="service" id="olla.console_meta_builder" />
     <argument type="service" id="olla.tool_meta_builder" />
   </service>
   

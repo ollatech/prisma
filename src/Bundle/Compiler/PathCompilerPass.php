@@ -68,6 +68,32 @@ final class PathCompilerPass implements CompilerPassInterface
             }
         }
 
+        if($container->hasDefinition('olla.account_discover')) {
+            $discover = $container->findDefinition('olla.account_discover');
+            $discover->addMethodCall(
+                'classes', ['account', $cache_dir]
+            );
+            $classMapFile = $cache_dir.'/account.map';
+            $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
+            foreach ($classes as $class => $file) {
+                $this->addOperationService($container, $class);
+            }
+        }
+
+        if($container->hasDefinition('olla.console_discover')) {
+            $discover = $container->findDefinition('olla.console_discover');
+            $discover->addMethodCall(
+                'classes', ['console', $cache_dir]
+            );
+            $classMapFile = $cache_dir.'/console.map';
+            $classes = file_exists($classMapFile) ? require $classMapFile : [];
+            $this->classAutoload($classes);
+            foreach ($classes as $class => $file) {
+                $this->addOperationService($container, $class);
+            }
+        }
+
         if($container->hasDefinition('olla.tool_discover')) {
             $discover = $container->findDefinition('olla.tool_discover');
             $discover->addMethodCall(
